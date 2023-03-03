@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useState } from "react";
 
 const RegisterPage = () => {
 	const [form, setForm] = useState({
-		id: "12",
+		id: "",
 		name: "",
 		email: "",
 		password: "",
