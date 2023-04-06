@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useContext, useState } from "react";
-import { LoggedContext } from "../App";
-import { MAIN_URL } from "../utils/url";
+import { LoggedContext } from "../../App";
+import { MAIN_URL } from "../../utils/url";
 
 const AddWord = () => {
 	const [form, setForm] = useState({
@@ -27,20 +27,13 @@ const AddWord = () => {
 		if (!logged) return null;
 
 		try {
-			const res = await fetch(`${MAIN_URL}/data/add`, {
+			await fetch(`${MAIN_URL}/data/add/${user.id}`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ ...form, userId: user.id }),
+				body: JSON.stringify(form),
 			});
-			console.log("weszło2");
-
-			console.log(form);
-
-			// const data = res.json();
-			// console.log(data);
-
 			console.log("dodano nowe słówko");
 
 			clearForm();
@@ -57,7 +50,7 @@ const AddWord = () => {
 	};
 
 	return (
-		<>
+		<section>
 			<h3>Dodaj nowe słówko</h3>
 
 			<form onSubmit={addWord}>
@@ -90,7 +83,7 @@ const AddWord = () => {
 				</label>
 				<button>DOdaj</button>
 			</form>
-		</>
+		</section>
 	);
 };
 

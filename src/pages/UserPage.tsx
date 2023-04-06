@@ -17,8 +17,12 @@ const UserPage = () => {
 			) : (
 				<>
 					<h3>Strona użytkownika</h3>
-					<Link to="/login">Idź do logowania</Link>
-					<Link to="/register">rejestracja</Link>
+					<div>
+						{" "}
+						<Link to="/login">Idź do logowania</Link>
+						<Link to="/register">rejestracja</Link>
+					</div>
+
 					<Dictionary />
 					<br />
 					<br />
