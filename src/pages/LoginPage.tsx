@@ -1,5 +1,6 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
-import { redirect } from "react-router-dom";
+import React, { SyntheticEvent, useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { LoggedContext } from "../App";
 import { UserEntity } from "types";
 
 const LoginPage = () => {
@@ -8,16 +9,32 @@ const LoginPage = () => {
 		password: "",
 	});
 
-	const [user, setUser] = useState<UserEntity | null>();
-
 	const [errorMsg, setErrorMsg] = useState("");
 
+	const navigate = useNavigate();
+
 	const updateForm = (key: string, value: string) => {
-		setForm(from => ({
+		setForm(form => ({
 			...form,
 			[key]: value,
 		}));
 	};
+
+	const context = useContext(LoggedContext);
+
+	//TODO spróbować przekierować od razu pod id
+	const { logged, handleLogIn, user, handleSetUser } = context;
+	if (logged) {
+		// console.log("weszło");
+		// console.log(user);
+		// TODO porbać za id użytkownika
+		return (
+			<>
+				<p>jesteś już zalogowany</p>
+				<Link to="/user/:id">Przejdź do strony głównej</Link>
+			</>
+		);
+	}
 
 	const getUser = async (e: SyntheticEvent) => {
 		e.preventDefault();
@@ -25,28 +42,24 @@ const LoginPage = () => {
 		try {
 			const res = await fetch(`http://localhost:3001/login/${form.email}`);
 			const data = await res.json();
-			console.log(data);
 
 			if (data === null) {
-				setErrorMsg("Nieprawidłowe dane");
+				return setErrorMsg("Nieprawidłowe dane");
 			} else {
-				console.log(data);
-
 				if (form.password === data.password) {
 					setErrorMsg("hasło ok");
-					setUser(data);
 
-					// TODO przekierowanie do strony głónej
-					// redirect
+					handleSetUser(data);
+					handleLogIn();
+
+					return navigate(`../user/${data.id}`);
 				} else {
-					setErrorMsg("hasło jest nieprawidłowe");
+					return setErrorMsg("hasło jest nieprawidłowe");
 				}
 			}
 		} catch (error) {
-			console.log(error);
-		} finally {
-			console.log("coś wysłąłem");
-			// console.log(form);
+			console.log("coś sie zjebało");
+			console.error(error);
 		}
 	};
 

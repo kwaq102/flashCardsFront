@@ -1,4 +1,6 @@
 import React, { SyntheticEvent, useState } from "react";
+import { Link } from "react-router-dom";
+import { MAIN_URL } from "../utils/url";
 
 const RegisterPage = () => {
 	const [form, setForm] = useState({
@@ -12,19 +14,20 @@ const RegisterPage = () => {
 		e.preventDefault();
 
 		try {
-			console.log(form);
+			console.log("form");
 
-			const res = await fetch("http://localhost:3001/register", {
+			const res = await fetch(`${MAIN_URL}/register`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(form),
 			});
+			console.log("form2");
 
 			const data = await res.json();
 
-			console.log(data);
+			// console.log(data);
 		} catch (e) {
 			console.log(e);
 		} finally {
@@ -33,7 +36,7 @@ const RegisterPage = () => {
 	};
 
 	const updateForm = (key: string, value: string) => {
-		setForm(from => ({
+		setForm(form => ({
 			...form,
 			[key]: value,
 		}));
@@ -71,6 +74,7 @@ const RegisterPage = () => {
 				</label>
 				<button type="submit">Zapisz</button>
 			</form>
+			{/* <Link to="/user">Pokaż uzytkownika</Link> */}
 		</section>
 	);
 };
