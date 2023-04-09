@@ -28,8 +28,8 @@ const Dictionary = () => {
 
 	return (
 		<>
-			<DisplayWords words={words} />
 			<DisplayRandomWord words={words} />
+			{/* <DisplayWords words={words} /> */}
 			<AddWord />
 		</>
 	);

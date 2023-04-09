@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { WordEntity } from "types";
 
 interface Props {
@@ -6,35 +6,70 @@ interface Props {
 }
 
 const DisplayRandomWord = ({ words }: Props) => {
-	const [index, setIndex] = useState<number | null>(null);
+	// const [index, setIndex] = useState<number | null>(null);
+	const [numberWords, setNumberWords] = useState(1);
+	const [drawnWords, setDrawnWords] = useState<WordEntity[]>([]);
+
+	// const drawnWords: WordEntity[] = [];
+
+	// const addUniqueWord = (newWordObj: WordEntity) => {
+	// 	if (!drawnWords.some(object => object.id === newWordObj.id)) {
+	// 		setDrawnWords([...drawnWords, newWordObj]);
+	// 	}
+	// };
 
 	const randomWord = () => {
-		console.log("działa");
+		setDrawnWords([]);
 
-		const i = Math.floor(Math.random() * words.length);
+		const oldArr = [...drawnWords];
+		const newArr: WordEntity[] = [];
+		const fullArr = [...words];
+		// console.log(newArr);
+		// console.log(numberWords);
 
-		console.log(i);
-		setIndex(i);
+		for (let i = 0; i < numberWords; i++) {
+			console.log(i);
+			let index = Math.floor(Math.random() * words.length);
+
+			if (!newArr.some(obj => obj.id === fullArr[index].id)) {
+				newArr.push(fullArr[index]);
+			} else {
+				i = i - 1;
+			}
+		}
+
+		setDrawnWords([...newArr]);
 	};
 
-	console.log();
+	const handleSetNumberWords = (e: ChangeEvent<HTMLSelectElement>) => {
+		setNumberWords(Number(e.target.value));
+	};
 
 	return (
 		<section>
-			<h3>Powtórka</h3>
+			<h3>Odmieć być</h3>
 			<p>wyolsuj</p>
 			<p>długość tablicy words to: {words.length}</p>
 
-			<button onClick={randomWord}>Wylosuj słówko</button>
+			<button onClick={randomWord}>Wylosuj</button>
+			<select name="words-number" onChange={handleSetNumberWords}>
+				{words.map((word, i) => (
+					<option key={i + 1} value={i + 1}>
+						{i + 1}
+					</option>
+				))}
+			</select>
 			<div>
-				Twoje słowo to:{" "}
-				{index !== null && (
-					<div>
-						<h3>{words[index].title}</h3>
-						<p>{words[index].description}</p>
-						<p>{words[index].notes}</p>
+				Wylosowane:{" "}
+				{drawnWords.map((word, i) => (
+					<div key={word.id}>
+						<h3>
+							{i + 1} {word.title}
+						</h3>
+						<p>{word.description}</p>
+						<p>{word.notes}</p>
 					</div>
-				)}
+				))}
 			</div>
 		</section>
 	);
