@@ -1,4 +1,13 @@
-import React, { ChangeEvent, useState } from "react";
+import React, {
+	ChangeEvent,
+	HTMLAttributeAnchorTarget,
+	HTMLAttributes,
+	MouseEvent,
+	SyntheticEvent,
+	useState,
+} from "react";
+import { Link } from "react-router-dom";
+import { MAIN_URL } from "../../utils/url";
 import { WordEntity } from "types";
 
 interface Props {
@@ -6,29 +15,23 @@ interface Props {
 }
 
 const DisplayRandomWord = ({ words }: Props) => {
-	// const [index, setIndex] = useState<number | null>(null);
 	const [numberWords, setNumberWords] = useState(1);
 	const [drawnWords, setDrawnWords] = useState<WordEntity[]>([]);
 
-	// const drawnWords: WordEntity[] = [];
-
-	// const addUniqueWord = (newWordObj: WordEntity) => {
-	// 	if (!drawnWords.some(object => object.id === newWordObj.id)) {
-	// 		setDrawnWords([...drawnWords, newWordObj]);
-	// 	}
-	// };
+	const clearDisplayRadomWords = () => setDrawnWords([]);
 
 	const randomWord = () => {
 		setDrawnWords([]);
 
-		const oldArr = [...drawnWords];
 		const newArr: WordEntity[] = [];
 		const fullArr = [...words];
-		// console.log(newArr);
-		// console.log(numberWords);
+
+		if (fullArr.length === 1) {
+			setDrawnWords([...fullArr]);
+			return;
+		}
 
 		for (let i = 0; i < numberWords; i++) {
-			console.log(i);
 			let index = Math.floor(Math.random() * words.length);
 
 			if (!newArr.some(obj => obj.id === fullArr[index].id)) {
@@ -45,6 +48,36 @@ const DisplayRandomWord = ({ words }: Props) => {
 		setNumberWords(Number(e.target.value));
 	};
 
+	const deleteWord = async (e: MouseEvent<HTMLButtonElement>) => {
+		if (!window.confirm("Czy na pewno?")) return;
+
+		const oldArrWords = [...drawnWords];
+
+		const [wordToRemove] = words.filter(word => word.id === e.currentTarget.id);
+		console.log(oldArrWords);
+
+		const newArrWords = oldArrWords.filter(word => word.id !== wordToRemove.id);
+
+		console.log(newArrWords);
+
+		const res = await fetch(`${MAIN_URL}/data/remove/${wordToRemove.id}`, {
+			method: "DELETE",
+		});
+
+		if (res.status === 200) {
+			setDrawnWords([...newArrWords]);
+
+			return (
+				// TODO sprawdzić dlaczego to nie działą ???
+				<section>
+					<p>USINIĘTO</p>
+				</section>
+			);
+		} else {
+			console.error();
+		}
+	};
+
 	return (
 		<section>
 			<h3>Odmieć być</h3>
@@ -59,6 +92,7 @@ const DisplayRandomWord = ({ words }: Props) => {
 					</option>
 				))}
 			</select>
+			<button onClick={clearDisplayRadomWords}>Wyczyść</button>
 			<div>
 				Wylosowane:{" "}
 				{drawnWords.map((word, i) => (
@@ -68,6 +102,9 @@ const DisplayRandomWord = ({ words }: Props) => {
 						</h3>
 						<p>{word.description}</p>
 						<p>{word.notes}</p>
+						<button id={word.id} onClick={deleteWord}>
+							Usuń
+						</button>
 					</div>
 				))}
 			</div>

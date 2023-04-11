@@ -12,19 +12,15 @@ const Dictionary = () => {
 	const context = useContext(LoggedContext);
 	const { logged, user } = context;
 
-	console.log(words);
-
 	useEffect(() => {
 		(async () => {
 			if (user === null) return null;
 
-			const res = await fetch(`${MAIN_URL}/data/search/${user?.id}`);
+			const res = await fetch(`${MAIN_URL}/data/search/${user.id}`);
 			const data = await res.json();
-
-			console.log(data);
 			setWords(data);
 		})();
-	}, []);
+	}, [words]);
 
 	return (
 		<>
