@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MAIN_URL } from "../utils/url";
 
@@ -9,6 +9,16 @@ const RegisterPage = () => {
 		email: "",
 		password: "",
 	});
+
+	const [addedUser, setAddedUser] = useState(false);
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setAddedUser(false);
+		}, 6000);
+
+		return () => clearInterval(timer);
+	}, [addedUser]);
 
 	const addUser = async (e: SyntheticEvent) => {
 		e.preventDefault();
@@ -23,15 +33,12 @@ const RegisterPage = () => {
 				},
 				body: JSON.stringify(form),
 			});
-			console.log("form2");
 
 			const data = await res.json();
-
-			// console.log(data);
+			setAddedUser(true);
+			setForm({ id: "", name: "", email: "", password: "" });
 		} catch (e) {
 			console.log(e);
-		} finally {
-			console.log("Wysłano");
 		}
 	};
 
@@ -46,6 +53,7 @@ const RegisterPage = () => {
 		<>
 			<section className="registerPage">
 				<h2 className="headingH2">Rejestracja nowego użytkownika</h2>
+
 				<form onSubmit={addUser} className="registerPage__form">
 					<label className="registerPage__form-label">
 						Nazwa użytkownika:
@@ -83,7 +91,13 @@ const RegisterPage = () => {
 					<button type="submit" className="registerPage__form-button btn">
 						Zarejestruj
 					</button>
+					{addedUser && (
+						<p className="registerPage__added-success-text">
+							Użytkownik został dodany!
+						</p>
+					)}
 				</form>
+
 				{/* <Link to="/user">Pokaż uzytkownika</Link> */}
 			</section>
 		</>
