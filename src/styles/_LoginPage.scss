@@ -1,0 +1,41 @@
+.loginPage {
+	@include contentCenter();
+	justify-content: flex-start;
+	height: 100vh;
+	width: 50%;
+	position: relative;
+
+	.loginPage__heading-h2 {
+		@include headingH2();
+	}
+
+	.loginPage__form {
+		@include contentCenter();
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		.loginPage__form-label {
+			margin: 5px 0;
+			font-size: 1.2rem;
+			font-weight: 300;
+
+			.loginPage__form-input {
+				@include input();
+			}
+		}
+
+		.btn {
+			@include btn();
+			width: 100%;
+			margin-top: 10px;
+		}
+		.loginPage__added-success-text {
+			@include text();
+			margin-top: 10px;
+			color: #22c722;
+			text-align: center;
+		}
+	}
+}

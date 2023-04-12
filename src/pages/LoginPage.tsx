@@ -25,8 +25,6 @@ const LoginPage = () => {
 	//TODO spróbować przekierować od razu pod id
 	const { logged, handleLogIn, user, handleSetUser } = context;
 	if (logged) {
-		// console.log("weszło");
-		// console.log(user);
 		// TODO porbać za id użytkownika
 		return (
 			<>
@@ -58,33 +56,38 @@ const LoginPage = () => {
 				}
 			}
 		} catch (error) {
-			console.log("coś sie zjebało");
 			console.error(error);
 		}
 	};
 
 	return (
-		<section>
-			<form onSubmit={getUser}>
-				<label>
+		<section className="loginPage">
+							<h2 className="headingH2">Logowanie</h2>
+			<form onSubmit={getUser} className="loginPage__form">
+				<label className="loginPage__form-label">
 					Podaj email
+					<br/>
 					<input
+					className="loginPage__form-input"
 						type="email"
 						name="email"
 						value={form.email}
 						onChange={e => updateForm("email", e.target.value)}
 					/>
 				</label>
-				<label>
+				<label className="loginPage__form-label">
 					Podaj hasło
+					<br/>
 					<input
+					className="loginPage__form-input"
 						type="password"
 						name="password"
 						value={form.password}
 						onChange={e => updateForm("password", e.target.value)}
 					/>
 				</label>
-				<button type="submit">Zaloguj</button>
+				<button type="submit" className="loginPage__form-button btn">Zaloguj</button>
+			<p className="loginPage__registerText">Nie masz jeszcze konta? <Link to="/register" className="loginPage__registerText-linkToRegister">Załóż je</Link></p>
 			</form>
 			{errorMsg && <p>{errorMsg}</p>}
 		</section>

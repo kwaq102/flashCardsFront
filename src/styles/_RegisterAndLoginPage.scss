@@ -1,27 +1,32 @@
-.registerPage {
+.registerPage,
+.loginPage {
 	@include contentCenter();
 	justify-content: flex-start;
 	height: 100vh;
 	width: 50%;
 	position: relative;
 
-	.registerPage__heading-h2 {
+	.registerPage__heading-h2,
+	.loginPage__heading-h2 {
 		@include headingH2();
 	}
 
-	.registerPage__form {
+	.registerPage__form,
+	.loginPage__form {
 		@include contentCenter();
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 
-		.registerPage__form-label {
+		.registerPage__form-label,
+		.loginPage__form-label{
 			margin: 5px 0;
 			font-size: 1.2rem;
 			font-weight: 300;
 
-			.registerPage__form-input {
+			.registerPage__form-input,
+			.loginPage__form-input  {
 				@include input();
 			}
 		}
@@ -31,11 +36,24 @@
 			width: 100%;
 			margin-top: 10px;
 		}
-		.registerPage__added-success-text {
+		.registerPage__added-success-text,
+		 {
 			@include text();
 			margin-top: 10px;
 			color: #22c722;
 			text-align: center;
 		}
+
+		.loginPage__registerText{
+			@include text();
+			margin-top: 10px;
+
+			.loginPage__registerText-linkToRegister{
+				@include link();
+				color: orange;
+			}
+		}
+
+
 	}
 }
