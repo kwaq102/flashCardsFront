@@ -11,25 +11,19 @@ const UserPage = () => {
 	const { logged, handleLogIn, user } = context;
 
 	return (
-		<>
+		<section className="userPage">
 			{!logged ? (
 				<p>Jesteś niezalogowany</p>
 			) : (
 				<>
-					<h3>Strona użytkownika</h3>
-					<div>
-						{" "}
-						<Link to="/login">Idź do logowania</Link>
-						<Link to="/register">rejestracja</Link>
-					</div>
-
+					<h2 className="headingH2">Strona użytkownika</h2>
 					<Dictionary />
 					<br />
 					<br />
 					<LogOutButton />
 				</>
 			)}
-		</>
+		</section>
 	);
 };
 

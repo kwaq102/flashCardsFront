@@ -14,6 +14,11 @@
 	text-align: center;
 }
 
+@mixin headingH3() {
+	@include headingH2();
+	font-size: 3rem;
+}
+
 @mixin text() {
 	font-size: 1.6rem;
 }
@@ -45,4 +50,10 @@
 	font-size: 1.4rem;
 	border-radius: 3px;
 	letter-spacing: 1px;
+}
+
+@mixin widthContent() {
+	width: 80%;
+	max-width: 1000px;
+	margin: 0 auto;
 }

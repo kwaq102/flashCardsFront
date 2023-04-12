@@ -34,8 +34,6 @@ const AddWord = () => {
 				},
 				body: JSON.stringify(form),
 			});
-			console.log("dodano nowe słówko");
-
 			clearForm();
 		} catch (e) {
 			console.log(e);
@@ -50,12 +48,13 @@ const AddWord = () => {
 	};
 
 	return (
-		<section>
-			<h3>Dodaj nowe słówko</h3>
+		<section className="addWord">
+			<h3 className="headingH3">Dodaj nowe słówko</h3>
 
-			<form onSubmit={addWord}>
-				<label>
+			<form onSubmit={addWord} className="addWord__form">
+				<label className="addWord__form-label">
 					<input
+						className="addWord__form-input"
 						type="text"
 						placeholder="Nowe słowo..."
 						name="title"
@@ -63,8 +62,9 @@ const AddWord = () => {
 						onChange={e => updateForm("title", e.target.value)}
 					/>
 				</label>
-				<label>
+				<label className="addWord__form-label">
 					<input
+						className="addWord__form-input"
 						type="text"
 						placeholder="Tłumaczenie"
 						name="description"
@@ -72,16 +72,16 @@ const AddWord = () => {
 						onChange={e => updateForm("description", e.target.value)}
 					/>
 				</label>
-				<label>
-					<p>Notatki</p>
-					<input
-						type="text"
+				<label className="addWord__form-label">
+					<p className="addWord__notes">Notatki</p>
+					<textarea
+						className="addWord__form-input"
 						name="notes"
 						value={form.notes}
 						onChange={e => updateForm("notes", e.target.value)}
 					/>
 				</label>
-				<button>DOdaj</button>
+				<button className="addWord__form-button btn">Dodaj</button>
 			</form>
 		</section>
 	);

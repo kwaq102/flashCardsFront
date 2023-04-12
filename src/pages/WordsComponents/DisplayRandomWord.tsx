@@ -79,30 +79,49 @@ const DisplayRandomWord = ({ words }: Props) => {
 	};
 
 	return (
-		<section>
-			<h3>Odmieć być</h3>
-			<p>wyolsuj</p>
-			<p>długość tablicy words to: {words.length}</p>
+		<section className="drawWords">
+			<h3 className="drawWords__headingH3">Odmieć być</h3>
+			<p className="drawWords__text">
+				Masz <strong>{words.length}</strong> zapisanych słówek.
+			</p>
 
-			<button onClick={randomWord}>Wylosuj</button>
-			<select name="words-number" onChange={handleSetNumberWords}>
+			<button onClick={randomWord} className="drawWords__drawButton btn">
+				Wylosuj
+			</button>
+			<select
+				name="words-number"
+				onChange={handleSetNumberWords}
+				className="drawWords__selectNumberToDisplay"
+			>
 				{words.map((word, i) => (
 					<option key={i + 1} value={i + 1}>
 						{i + 1}
 					</option>
 				))}
 			</select>
-			<button onClick={clearDisplayRadomWords}>Wyczyść</button>
-			<div>
-				Wylosowane:{" "}
+			<button
+				onClick={clearDisplayRadomWords}
+				className="drawWords__clearButton btn"
+			>
+				Wyczyść
+			</button>
+			<div className="drawWords__content">
+				<p className="drawWords__text">Wylosowane: </p>
 				{drawnWords.map((word, i) => (
-					<div key={word.id}>
-						<h3>
-							{i + 1} {word.title}
-						</h3>
-						<p>{word.description}</p>
-						<p>{word.notes}</p>
-						<button id={word.id} onClick={deleteWord}>
+					<div key={word.id} className="drawWords__content-card">
+						<h4 className="drawWords__content-headingH4">{word.title}</h4>
+						<p className="drawWords__content-description text">
+							{word.description}
+						</p>
+						<p className="drawWords__content-notes text">
+							<span>Notatki: </span>
+							{word.notes}
+						</p>
+						<button
+							id={word.id}
+							onClick={deleteWord}
+							className="drawWords__deleteButton btn"
+						>
 							Usuń
 						</button>
 					</div>

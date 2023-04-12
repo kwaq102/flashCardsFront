@@ -1,0 +1,121 @@
+.userPage {
+	.headingH2 {
+		@include headingH2();
+	}
+}
+
+.drawWords {
+	@include widthContent();
+
+	.drawWords__headingH3 {
+		@include headingH3();
+		text-align: left;
+	}
+
+	.drawWords__text {
+		@include text();
+		margin: 10px 0;
+	}
+
+	.btn {
+		@include btn();
+		font-size: 1.6rem;
+		padding: 5px 15px;
+	}
+
+	.drawWords__selectNumberToDisplay {
+		@include btn();
+		width: 50px;
+		font-size: 1.6rem;
+		padding: 5px;
+		margin: 0 10px 0 2px;
+
+		&:hover {
+			color: #fff;
+		}
+		&:focus-visible {
+			outline: none;
+		}
+	}
+
+	.drawWords__content {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+
+		.drawWords__text {
+			width: 100%;
+		}
+
+		.drawWords__content-card {
+			width: 30%;
+			margin: 10px;
+			padding: 5px;
+			background-color: #3f4552;
+			border-radius: 5px;
+			border: 1px solid #272b33;
+
+			.drawWords__content-headingH4 {
+				margin: 5px 0;
+				padding-bottom: 5px;
+				text-align: center;
+				font-size: 2.4rem;
+				letter-spacing: 1px;
+				border-bottom: 1px solid orange;
+				color: gold;
+			}
+
+			.text {
+				margin: 10px 0;
+				font-size: 1.8rem;
+				font-weight: 400;
+			}
+
+			.drawWords__content-notes {
+				font-weight: 300;
+				font-size: 1.5rem;
+				color: antiquewhite;
+				span {
+					display: block;
+					margin-bottom: 5px;
+					font-size: 1.1rem;
+					font-style: italic;
+					letter-spacing: 1px;
+					color: #a1b0d1;
+				}
+			}
+
+			.drawWords__deleteButton {
+				display: block;
+				width: 80px;
+				margin-top: 20px;
+				margin-left: auto;
+				font-size: 1.1rem;
+				padding: 2px 4px;
+			}
+		}
+	}
+}
+
+.addWord {
+	@include widthContent();
+
+	.headingH3 {
+		@include headingH3();
+	}
+
+	.addWord__form {
+		@include contentCenter();
+
+		align-items: center;
+
+		.addWord__form-input {
+			@include input();
+			margin: 5px 0;
+		}
+
+		.btn {
+			@include btn();
+		}
+	}
+}
