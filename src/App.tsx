@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 import { Route } from "react-router";
-import { Routes, Navigate } from "react-router-dom";
+import { Routes, Navigate, Link } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserPage from "./pages/UserPage";
@@ -8,7 +8,7 @@ import { UserEntity } from "../../back/types/user";
 import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
 
-import './styles/index.scss'
+import "./styles/index.scss";
 
 interface LoggedContextType {
 	logged: boolean;
@@ -43,7 +43,18 @@ function App() {
 
 	return (
 		<div className="App">
-		<LoggedContext.Provider
+			<div className="App__bannerTop">
+			{logged ? (
+				<Link to="/" className="App__bannerTop__btn" onClick={handleLogOut}>
+					Wyloguj
+				</Link>
+			) : (
+				<Link to="/login" className="App__bannerTop__btn">
+					Zaloguj
+				</Link>
+			)}
+		</div>
+			<LoggedContext.Provider
 				value={{
 					logged,
 					handleLogIn,
