@@ -1,0 +1,34 @@
+.registerPage {
+	@include contentCenter();
+	justify-content: flex-start;
+	height: 100vh;
+	width: 50%;
+	position: relative;
+
+	.registerPage__heading-h2 {
+		@include headingH2();
+	}
+
+	.registerPage__form {
+		@include contentCenter();
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		.registerPage__form-label {
+			margin: 5px 0;
+			font-size: 1.2rem;
+			font-weight: 300;
+
+			.registerPage__form-input {
+				@include input();
+			}
+		}
+
+		.btn {
+			@include btn();
+			width: 100%;
+		}
+	}
+}

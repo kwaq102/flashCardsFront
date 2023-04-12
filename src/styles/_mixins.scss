@@ -1,4 +1,12 @@
+@mixin contentCenter() {
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
 @mixin headingH2() {
+	width: 100%;
 	margin: 10px 0;
 	font-size: 4rem;
 	letter-spacing: 2px;
@@ -20,6 +28,7 @@
 	border-radius: 10px;
 	border: 1px solid orange;
 	letter-spacing: 1px;
+	cursor: pointer;
 
 	&:hover {
 		color: #ffa500;
@@ -28,4 +37,12 @@
 
 @mixin link() {
 	text-decoration: none;
+}
+
+@mixin input() {
+	width: 250px;
+	padding: 5px 10px;
+	font-size: 1.4rem;
+	border-radius: 3px;
+	letter-spacing: 1px;
 }

@@ -31,7 +31,7 @@ const RegisterPage = () => {
 		} catch (e) {
 			console.log(e);
 		} finally {
-			console.log("WYsłano");
+			console.log("Wysłano");
 		}
 	};
 
@@ -43,39 +43,50 @@ const RegisterPage = () => {
 	};
 
 	return (
-		<section>
-			<form onSubmit={addUser}>
-				<label>
-					Nazwa użytkownika:
-					<input
-						type="text"
-						name="name"
-						value={form.name}
-						onChange={e => updateForm("name", e.target.value)}
-					/>
-				</label>
-				<label>
-					E-mail:
-					<input
-						type="email"
-						name="email"
-						value={form.email}
-						onChange={e => updateForm("email", e.target.value)}
-					/>
-				</label>
-				<label>
-					Hasło:
-					<input
-						type="password"
-						name="password"
-						value={form.password}
-						onChange={e => updateForm("password", e.target.value)}
-					/>
-				</label>
-				<button type="submit">Zapisz</button>
-			</form>
-			{/* <Link to="/user">Pokaż uzytkownika</Link> */}
-		</section>
+		<>
+			<section className="registerPage">
+				<h2 className="headingH2">Rejestracja nowego użytkownika</h2>
+				<form onSubmit={addUser} className="registerPage__form">
+					<label className="registerPage__form-label">
+						Nazwa użytkownika:
+						<br />
+						<input
+							className="registerPage__form-input"
+							type="text"
+							name="name"
+							value={form.name}
+							onChange={e => updateForm("name", e.target.value)}
+						/>
+					</label>
+					<label className="registerPage__form-label">
+						E-mail:
+						<br />
+						<input
+							className="registerPage__form-input"
+							type="email"
+							name="email"
+							value={form.email}
+							onChange={e => updateForm("email", e.target.value)}
+						/>
+					</label>
+					<label className="registerPage__form-label">
+						Hasło:
+						<br />
+						<input
+							className="registerPage__form-input"
+							type="password"
+							name="password"
+							value={form.password}
+							onChange={e => updateForm("password", e.target.value)}
+						/>
+					</label>
+					<button type="submit" className="registerPage__form-button btn">
+						Zarejestruj
+					</button>
+				</form>
+				{/* <Link to="/user">Pokaż uzytkownika</Link> */}
+			</section>
+		</>
 	);
 };
 
