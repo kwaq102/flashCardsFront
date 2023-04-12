@@ -1,0 +1,31 @@
+@mixin headingH2() {
+	margin: 10px 0;
+	font-size: 4rem;
+	letter-spacing: 2px;
+	font-weight: 700;
+	text-align: center;
+}
+
+@mixin text() {
+	font-size: 1.6rem;
+}
+
+@mixin btn() {
+	width: 150px;
+	padding: 10px 20px;
+	font-size: 2rem;
+	background-color: #353a45;
+	color: #fff;
+	text-align: center;
+	border-radius: 10px;
+	border: 1px solid orange;
+	letter-spacing: 1px;
+
+	&:hover {
+		color: #ffa500;
+	}
+}
+
+@mixin link() {
+	text-decoration: none;
+}

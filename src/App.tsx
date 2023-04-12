@@ -5,8 +5,10 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserPage from "./pages/UserPage";
 import { UserEntity } from "../../back/types/user";
+import HomePage from "./pages/HomePage";
+import ErrorPage from "./pages/ErrorPage";
 
-// type LoggedContextType = false | true;
+import './styles/index.scss'
 
 interface LoggedContextType {
 	logged: boolean;
@@ -41,7 +43,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<LoggedContext.Provider
+		<LoggedContext.Provider
 				value={{
 					logged,
 					handleLogIn,
@@ -50,8 +52,8 @@ function App() {
 					handleSetUser: setUser,
 				}}
 			>
-				Działa APP
 				<Routes>
+					<Route path="/" element={<HomePage />} />
 					<Route path="/login" element={<LoginPage />} />
 					<Route path="/register" element={<RegisterPage />} />
 
@@ -61,6 +63,7 @@ function App() {
 							!logged ? <Navigate replace to="../../login" /> : <UserPage />
 						}
 					/>
+					<Route path="*" element={<ErrorPage />} />
 				</Routes>
 			</LoggedContext.Provider>
 		</div>

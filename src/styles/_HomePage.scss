@@ -1,0 +1,34 @@
+.homePage__content {
+	height: 100vh;
+	width: 30%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	.heading-h2 {
+		@include headingH2();
+	}
+
+	.homePage__welcome-text {
+		@include text();
+		margin: 10px 0;
+		text-align: center;
+	}
+
+	.homePage__wrapperButtons {
+		display: flex;
+		justify-content: center;
+		.btn {
+			@include link();
+			@include btn();
+			margin: 20px 10px;
+		}
+	}
+
+	.homePage__descriptiont {
+		font-size: 1.2rem;
+		text-align: justify;
+		font-weight: 300;
+	}
+}
