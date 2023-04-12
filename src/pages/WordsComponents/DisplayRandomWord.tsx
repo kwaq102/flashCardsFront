@@ -1,12 +1,4 @@
-import React, {
-	ChangeEvent,
-	HTMLAttributeAnchorTarget,
-	HTMLAttributes,
-	MouseEvent,
-	SyntheticEvent,
-	useState,
-} from "react";
-import { Link } from "react-router-dom";
+import React, { ChangeEvent, MouseEvent, useState } from "react";
 import { MAIN_URL } from "../../utils/url";
 import { WordEntity } from "types";
 
@@ -66,7 +58,7 @@ const DisplayRandomWord = ({ words }: Props) => {
 
 		if (res.status === 200) {
 			setDrawnWords([...newArrWords]);
-
+			setNumberWords(1);
 			return (
 				// TODO sprawdzić dlaczego to nie działą ???
 				<section>

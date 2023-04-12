@@ -2,6 +2,12 @@
 	.headingH2 {
 		@include headingH2();
 	}
+
+	.userPage__button {
+		text-align: center;
+		font-size: 1.4rem;
+		cursor: pointer;
+	}
 }
 
 .drawWords {

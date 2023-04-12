@@ -6,7 +6,11 @@ const LogOutButton = () => {
 
 	const { handleLogOut } = context;
 
-	return <div onClick={handleLogOut}>Wyloguj</div>;
+	return (
+		<div onClick={handleLogOut} className="userPage__button btn">
+			Wyloguj
+		</div>
+	);
 };
 
 export default LogOutButton;
