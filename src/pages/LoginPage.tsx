@@ -62,13 +62,13 @@ const LoginPage = () => {
 
 	return (
 		<section className="loginPage">
-							<h2 className="headingH2">Logowanie</h2>
+			<h2 className="headingH2">Logowanie</h2>
 			<form onSubmit={getUser} className="loginPage__form">
 				<label className="loginPage__form-label">
 					Podaj email
-					<br/>
+					<br />
 					<input
-					className="loginPage__form-input"
+						className="loginPage__form-input"
 						type="email"
 						name="email"
 						value={form.email}
@@ -77,17 +77,27 @@ const LoginPage = () => {
 				</label>
 				<label className="loginPage__form-label">
 					Podaj hasło
-					<br/>
+					<br />
 					<input
-					className="loginPage__form-input"
+						className="loginPage__form-input"
 						type="password"
 						name="password"
 						value={form.password}
 						onChange={e => updateForm("password", e.target.value)}
 					/>
 				</label>
-				<button type="submit" className="loginPage__form-button btn">Zaloguj</button>
-			<p className="loginPage__registerText">Nie masz jeszcze konta? <Link to="/register" className="loginPage__registerText-linkToRegister">Załóż je</Link></p>
+				<button type="submit" className="loginPage__form-button btn">
+					Zaloguj
+				</button>
+				<p className="loginPage__registerText">
+					Nie masz jeszcze konta?{" "}
+					<Link
+						to="/register"
+						className="loginPage__registerText-linkToRegister"
+					>
+						Załóż je
+					</Link>
+				</p>
 			</form>
 			{errorMsg && <p>{errorMsg}</p>}
 		</section>

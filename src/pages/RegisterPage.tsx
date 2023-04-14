@@ -1,6 +1,8 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MAIN_URL } from "../utils/url";
+import { UserEntity } from "types";
+import ErrorMessage from "../components/ErrorMessage";
 
 const RegisterPage = () => {
 	const [form, setForm] = useState({
@@ -11,6 +13,21 @@ const RegisterPage = () => {
 	});
 
 	const [addedUser, setAddedUser] = useState(false);
+	const [users, setUsers] = useState<UserEntity[]>([]);
+
+	const [nameError, setNameError] = useState(false);
+	const [emailError, setEmailError] = useState(false);
+	const [passwordError, setPasswordError] = useState(false);
+	const [errorMessage, setErrorMessage] = useState<string>("");
+
+	useEffect(() => {
+		(async () => {
+			const res = await fetch(`${MAIN_URL}/register/users`);
+			const data = await res.json();
+
+			setUsers(data.userList);
+		})();
+	}, [addedUser]);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -20,12 +37,38 @@ const RegisterPage = () => {
 		return () => clearInterval(timer);
 	}, [addedUser]);
 
+	const validationForm = () => {
+		if (
+			form.email.length < 5 ||
+			!form.email.includes("@") ||
+			!form.email.includes(".")
+		) {
+			setErrorMessage("Nieprawidłowy email");
+			setEmailError(true);
+		}
+		if (form.name.length < 3 || form.name.length > 99) {
+			setNameError(true);
+		}
+
+		if (form.password.length < 5) {
+			setPasswordError(true);
+		}
+
+		console.log(users);
+
+		if (users.some(user => user.email === form.email)) {
+			setEmailError(true);
+			setErrorMessage("Taki email już istnieje.");
+		}
+	};
+
 	const addUser = async (e: SyntheticEvent) => {
 		e.preventDefault();
+		if (emailError || nameError || passwordError || errorMessage) {
+			return;
+		}
 
 		try {
-			console.log("form");
-
 			const res = await fetch(`${MAIN_URL}/register`, {
 				method: "POST",
 				headers: {
@@ -34,7 +77,8 @@ const RegisterPage = () => {
 				body: JSON.stringify(form),
 			});
 
-			const data = await res.json();
+			await res.json();
+
 			setAddedUser(true);
 			setForm({ id: "", name: "", email: "", password: "" });
 		} catch (e) {
@@ -43,6 +87,12 @@ const RegisterPage = () => {
 	};
 
 	const updateForm = (key: string, value: string) => {
+		setAddedUser(false);
+		setEmailError(false);
+		setNameError(false);
+		setPasswordError(false);
+		setErrorMessage("");
+
 		setForm(form => ({
 			...form,
 			[key]: value,
@@ -65,6 +115,9 @@ const RegisterPage = () => {
 							value={form.name}
 							onChange={e => updateForm("name", e.target.value)}
 						/>
+						{nameError && (
+							<ErrorMessage errorMessage="Nieprawidłowa nazwa użytkownika" />
+						)}
 					</label>
 					<label className="registerPage__form-label">
 						E-mail:
@@ -76,6 +129,7 @@ const RegisterPage = () => {
 							value={form.email}
 							onChange={e => updateForm("email", e.target.value)}
 						/>
+						{emailError && <ErrorMessage errorMessage={errorMessage} />}
 					</label>
 					<label className="registerPage__form-label">
 						Hasło:
@@ -87,8 +141,15 @@ const RegisterPage = () => {
 							value={form.password}
 							onChange={e => updateForm("password", e.target.value)}
 						/>
+						{passwordError && (
+							<ErrorMessage errorMessage="Hasło musi skłądać się z co najmniej 5 znaków" />
+						)}
 					</label>
-					<button type="submit" className="registerPage__form-button btn">
+					<button
+						type="submit"
+						className="registerPage__form-button btn"
+						onClick={validationForm}
+					>
 						Zarejestruj
 					</button>
 					{addedUser && (
@@ -97,8 +158,6 @@ const RegisterPage = () => {
 						</p>
 					)}
 				</form>
-
-				{/* <Link to="/user">Pokaż uzytkownika</Link> */}
 			</section>
 		</>
 	);
