@@ -55,7 +55,7 @@ function App() {
 					</Link>
 				)}
 
-				<Navigation />
+				<Navigation user={user} />
 			</div>
 			<LoggedContext.Provider
 				value={{
@@ -72,7 +72,7 @@ function App() {
 					<Route path="/register" element={<RegisterPage />} />
 
 					<Route
-						path="/user/:id"
+						path={`/user/${user?.id}`}
 						element={
 							!logged ? <Navigate replace to="../../login" /> : <UserPage />
 						}
