@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Navigation = ({ user }: Props) => {
-	const userIdPath = user?.id ? user.id : "";
+	const userIdPath = user?.id ? user.id : "../login";
 
 	const navigation = navList.map(el => (
 		<li className="navigation__list__element-link">
