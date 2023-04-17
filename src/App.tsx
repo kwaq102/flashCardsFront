@@ -29,6 +29,7 @@ export const LoggedContext = createContext<LoggedContextType>({
 
 function App() {
 	const [logged, setLogged] = useState(false);
+	const [user, setUser] = useState<UserEntity | null>(null);
 
 	// TODO ustawić logged na jakis stan w localstorage??
 	console.log(logged);
@@ -38,9 +39,8 @@ function App() {
 	};
 	const handleLogOut = () => {
 		setLogged(false);
+		setUser(null);
 	};
-
-	const [user, setUser] = useState<UserEntity | null>(null);
 
 	return (
 		<div className="App">

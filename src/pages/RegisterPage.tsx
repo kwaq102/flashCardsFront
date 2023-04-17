@@ -7,7 +7,7 @@ import ErrorMessage from "../components/ErrorMessage";
 const RegisterPage = () => {
 	const [form, setForm] = useState({
 		id: "",
-		name: "",
+		userName: "",
 		email: "",
 		password: "",
 	});
@@ -46,7 +46,7 @@ const RegisterPage = () => {
 			setErrorMessage("Nieprawidłowy email");
 			setEmailError(true);
 		}
-		if (form.name.length < 3 || form.name.length > 99) {
+		if (form.userName.length < 3 || form.userName.length > 99) {
 			setNameError(true);
 		}
 
@@ -77,7 +77,7 @@ const RegisterPage = () => {
 			await res.json();
 
 			setAddedUser(true);
-			setForm({ id: "", name: "", email: "", password: "" });
+			setForm({ id: "", userName: "", email: "", password: "" });
 		} catch (e) {
 			console.log(e);
 		}
@@ -109,7 +109,7 @@ const RegisterPage = () => {
 							className="registerPage__form-input"
 							type="text"
 							name="name"
-							value={form.name}
+							value={form.userName}
 							onChange={e => updateForm("name", e.target.value)}
 						/>
 						{nameError && (

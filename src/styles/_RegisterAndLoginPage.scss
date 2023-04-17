@@ -12,7 +12,8 @@
 	}
 
 	.registerPage__form,
-	.loginPage__form {
+	.loginPage__form,
+	.loginPage__log-info {
 		@include contentCenter();
 		position: absolute;
 		top: 50%;
@@ -54,8 +55,26 @@
 
 			.loginPage__registerText-linkToRegister {
 				@include link();
-				color: orange;
+				color: #ffa500;
 			}
+		}
+
+		.loginPage__log-info-text {
+			margin-bottom: 20px;
+			text-align: center;
+			font-size: 2rem;
+		}
+
+		.loginPage__link__linkHomePage {
+			@include link();
+			color: white;
+
+			&:hover {
+				color: #ffa500;
+			}
+		}
+		.loginPage__log-info__btn {
+			font-size: 1.6rem;
 		}
 	}
 }

@@ -22,15 +22,32 @@ const LoginPage = () => {
 
 	const context = useContext(LoggedContext);
 
-	//TODO spróbować przekierować od razu pod id
-	const { logged, handleLogIn, user, handleSetUser } = context;
+	const { logged, handleLogIn, user, handleSetUser, handleLogOut } = context;
+
 	if (logged) {
-		// TODO porbać za id użytkownika
 		return (
-			<>
-				<p>jesteś już zalogowany</p>
-				<Link to="/user/:id">Przejdź do strony głównej</Link>
-			</>
+			<section className="loginPage">
+				<div className="loginPage__log-info">
+					<p className="loginPage__log-info-text">
+						Jesteś już zalogowany jako {user ? user.userName : ""}.
+					</p>
+
+					<button className="loginPage__log-info__btn btn">
+						<Link
+							to={`/user/${user?.id}`}
+							className="loginPage__link__linkHomePage"
+						>
+							Strona użytkownika
+						</Link>
+					</button>
+					<button
+						onClick={handleLogOut}
+						className="loginPage__log-info__btn btn"
+					>
+						Wyloguj
+					</button>
+				</div>
+			</section>
 		);
 	}
 
