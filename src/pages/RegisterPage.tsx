@@ -53,9 +53,6 @@ const RegisterPage = () => {
 		if (form.password.length < 5) {
 			setPasswordError(true);
 		}
-
-		console.log(users);
-
 		if (users.some(user => user.email === form.email)) {
 			setEmailError(true);
 			setErrorMessage("Taki email już istnieje.");

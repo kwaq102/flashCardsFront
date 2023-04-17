@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { MAIN_URL } from "../utils/url";
 import { LoggedContext } from "../App";
-import AddWord from "./WordsComponents/AddWord";
-import DisplayWords from "./WordsComponents/DisplayWords";
-import DisplayRandomWord from "./WordsComponents/DisplayRandomWord";
+import AddWord from "../components/WordsComponents/AddWord";
+import DisplayWords from "../components/WordsComponents/DisplayWords";
+import DisplayRandomWord from "../components/WordsComponents/DisplayRandomWord";
 import { WordEntity } from "types";
 
 const Dictionary = () => {

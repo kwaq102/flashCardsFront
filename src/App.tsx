@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
 
 import "./styles/index.scss";
+import Navigation from "./components/Navigation";
 
 interface LoggedContextType {
 	logged: boolean;
@@ -44,16 +45,18 @@ function App() {
 	return (
 		<div className="App">
 			<div className="App__bannerTop">
-			{logged ? (
-				<Link to="/" className="App__bannerTop__btn" onClick={handleLogOut}>
-					Wyloguj
-				</Link>
-			) : (
-				<Link to="/login" className="App__bannerTop__btn">
-					Zaloguj
-				</Link>
-			)}
-		</div>
+				{logged ? (
+					<Link to="/" className="App__bannerTop__btn" onClick={handleLogOut}>
+						Wyloguj
+					</Link>
+				) : (
+					<Link to="/login" className="App__bannerTop__btn">
+						Zaloguj
+					</Link>
+				)}
+
+				<Navigation />
+			</div>
 			<LoggedContext.Provider
 				value={{
 					logged,
