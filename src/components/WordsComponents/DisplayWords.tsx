@@ -5,6 +5,8 @@ interface Props {
 	words: WordEntity[];
 }
 
+// TODO chyba zrobić tabelkę ze słówkami
+
 const DisplayWords = ({ words }: Props) => {
 	return (
 		<section>

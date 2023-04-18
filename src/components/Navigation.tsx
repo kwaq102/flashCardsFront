@@ -1,4 +1,4 @@
-import React, { useId } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { navList } from "../utils/navigationList";
 import { UserEntity } from "types";
@@ -35,6 +35,26 @@ const Navigation = ({ user }: Props) => {
 						Strona użytkownika
 					</NavLink>
 				</li>
+				{user !== null && (
+					<>
+						<li className="navigation__list__element-link">
+							<NavLink
+								to={`/user/${userIdPath}/add-word`}
+								className="navigation__list__element-link"
+							>
+								Dodaj słowo
+							</NavLink>
+						</li>
+						<li className="navigation__list__element-link">
+							<NavLink
+								to={`/user/${userIdPath}/show-words`}
+								className="navigation__list__element-link"
+							>
+								Pokaż słownik
+							</NavLink>
+						</li>
+					</>
+				)}
 			</ul>
 		</nav>
 	);

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Route } from "react-router";
 import { Routes, Navigate, Link } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
@@ -10,6 +10,10 @@ import ErrorPage from "./pages/ErrorPage";
 
 import "./styles/index.scss";
 import Navigation from "./components/Navigation";
+import AddWord from "./components/WordsComponents/AddWord";
+import DisplayWords from "./components/WordsComponents/DisplayWords";
+import { MAIN_URL } from "./utils/url";
+import { WordEntity } from "types";
 
 interface LoggedContextType {
 	logged: boolean;
@@ -30,6 +34,7 @@ export const LoggedContext = createContext<LoggedContextType>({
 function App() {
 	const [logged, setLogged] = useState(false);
 	const [user, setUser] = useState<UserEntity | null>(null);
+	const [words, setWords] = useState<WordEntity[]>([]);
 
 	// TODO ustawić logged na jakis stan w localstorage??
 	console.log(logged);
@@ -41,6 +46,19 @@ function App() {
 		setLogged(false);
 		setUser(null);
 	};
+
+	const refreshWords = async () => {
+		if (user === null) return null;
+		setWords([]);
+
+		const res = await fetch(`${MAIN_URL}/data/search/${user.id}`);
+		const data = await res.json();
+		setWords(data);
+	};
+
+	useEffect(() => {
+		refreshWords();
+	}, [logged]);
 
 	return (
 		<div className="App">
@@ -74,8 +92,24 @@ function App() {
 					<Route
 						path={`/user/${user?.id}`}
 						element={
-							!logged ? <Navigate replace to="../../login" /> : <UserPage />
+							!logged ? (
+								<Navigate replace to="../../login" />
+							) : (
+								<UserPage
+									words={words}
+									handleWords={setWords}
+									onWordsChange={refreshWords}
+								/>
+							)
 						}
+					/>
+					<Route
+						path={`/user/${user?.id}/add-word`}
+						element={<AddWord onWordsChange={refreshWords} />}
+					/>
+					<Route
+						path={`/user/${user?.id}/show-words`}
+						element={<DisplayWords words={words} />}
 					/>
 					<Route path="*" element={<ErrorPage />} />
 				</Routes>

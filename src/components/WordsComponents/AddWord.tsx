@@ -2,7 +2,11 @@ import React, { SyntheticEvent, useContext, useState } from "react";
 import { LoggedContext } from "../../App";
 import { MAIN_URL } from "../../utils/url";
 
-const AddWord = () => {
+interface Props {
+	onWordsChange: () => void;
+}
+
+const AddWord = ({ onWordsChange }: Props) => {
 	const [form, setForm] = useState({
 		title: "",
 		description: "",
@@ -34,6 +38,7 @@ const AddWord = () => {
 				},
 				body: JSON.stringify(form),
 			});
+			onWordsChange();
 			clearForm();
 		} catch (e) {
 			console.log(e);
