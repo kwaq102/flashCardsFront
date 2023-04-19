@@ -1,11 +1,30 @@
-import React from "react";
+import React, { MouseEvent } from "react";
+import { MAIN_URL } from "../../utils/url";
 import { WordEntity } from "types";
 
 interface Props {
 	words: WordEntity[];
+	onWordsChange: () => void;
 }
 
-const DisplayWords = ({ words }: Props) => {
+const DisplayWords = ({ words, onWordsChange }: Props) => {
+	const removeWord = async (e: MouseEvent<HTMLButtonElement>) => {
+		if (!window.confirm("Czy na pewno?")) return;
+
+		const [wordToRemove] = words.filter(word => word.id === e.currentTarget.id);
+
+		console.log(e.currentTarget.id);
+		console.log(wordToRemove.id);
+
+		const res = await fetch(`${MAIN_URL}/data/remove/${wordToRemove.id}`, {
+			method: "DELETE",
+		});
+
+		if (res.status === 200 || res.status === 204) {
+			onWordsChange();
+		}
+	};
+
 	const allWords = words
 		.sort((prev, curr) => {
 			if (prev.title.toUpperCase() < curr.title.toUpperCase()) {
@@ -26,8 +45,18 @@ const DisplayWords = ({ words }: Props) => {
 					{word.description}
 				</th>
 				<th className="displayAllWords__table__body__element">{word.notes}</th>
+				<th className="displayAllWords__table__body__element remove">
+					<button
+						className="displayAllWords__table__body__element-delete btn"
+						onClick={removeWord}
+						id={word.id}
+					>
+						X
+					</button>
+				</th>
 			</tr>
 		));
+
 	return (
 		<section className="displayAllWords">
 			<h2 className="displayAllWords__heading headingH3">Twój słownik</h2>

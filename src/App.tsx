@@ -109,7 +109,9 @@ function App() {
 					/>
 					<Route
 						path={`/user/${user?.id}/show-words`}
-						element={<DisplayWords words={words} />}
+						element={
+							<DisplayWords words={words} onWordsChange={refreshWords} />
+						}
 					/>
 					<Route path="*" element={<ErrorPage />} />
 				</Routes>
