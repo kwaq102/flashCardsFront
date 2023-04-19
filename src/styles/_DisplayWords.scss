@@ -1,0 +1,61 @@
+.displayAllWords {
+	@include widthContent();
+
+	.headingH3 {
+		@include headingH3();
+		margin: 30px 0;
+	}
+
+	.displayAllWords__table {
+		width: 100%;
+		background-color: #1a1f27;
+		border-spacing: 0;
+
+		// HEAD
+		.displayAllWords__table__heading {
+			font-size: 2rem;
+			letter-spacing: 2px;
+			background-color: #626c80;
+
+			.displayAllWords__table__heading__row {
+				background-color: #1a1f27;
+
+				.displayAllWords__table__heading__element {
+					padding: 15px 30px;
+					border: 1px solid #626c80;
+					border-bottom: none;
+				}
+				.ordinal-number-head {
+					padding: 5px 10px;
+				}
+			}
+		}
+
+		// BODY
+		.displayAllWords__table__body__row {
+			background-color: #626c80;
+			font-size: 1.6rem;
+
+			.displayAllWords__table__body__element {
+				padding: 20px 15px;
+				font-weight: 300;
+				border: 1px solid #1a1f27;
+			}
+
+			.ordinal-number {
+				padding: 0;
+				font-weight: 400;
+			}
+
+			&:nth-child(even) {
+				background-color: #4f5666;
+			}
+
+			&:nth-child(1) {
+				.displayAllWords__table__body__element {
+					border-top: none;
+				}
+			}
+		}
+	}
+}
