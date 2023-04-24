@@ -1,4 +1,4 @@
-import React, { FormEvent, MouseEvent, useState } from "react";
+import React, { FormEvent, MouseEvent, useRef, useState } from "react";
 import { MAIN_URL } from "../../utils/url";
 import { WordEntity } from "types";
 
@@ -15,6 +15,7 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 		description: "",
 		notes: "",
 	});
+	const [marginForm, setMarginForm] = useState(0);
 
 	const removeWord = async (e: MouseEvent<HTMLButtonElement>) => {
 		if (!window.confirm("Czy na pewno?")) return;
@@ -22,10 +23,6 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 		const [wordToRemove] = words.filter(
 			word => word.id === e.currentTarget.getAttribute("data-id")
 		);
-
-		console.log(e.currentTarget.id);
-		console.log(wordToRemove.id);
-
 		const res = await fetch(`${MAIN_URL}/data/remove/${wordToRemove.id}`, {
 			method: "DELETE",
 		});
@@ -35,7 +32,12 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 		}
 	};
 
-	const editWordOn = (e: MouseEvent<HTMLButtonElement>) => {
+	const editWordOn = (e: MouseEvent) => {
+		const heightFromTopForm = Number(
+			e.currentTarget.parentElement?.parentElement?.offsetTop
+		);
+
+		setMarginForm(heightFromTopForm);
 		setEdit(true);
 		const [wordToEdit] = words.filter(
 			word => word.id === e.currentTarget.getAttribute("data-id")
@@ -54,6 +56,7 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 	const editWord = async (e: FormEvent) => {
 		e.preventDefault();
 
+		// TODO ten confirm zamienić na jakiś ładny popup
 		try {
 			if (!window.confirm("Czy chcesz zapisać zmiany?")) return;
 			await fetch(`${MAIN_URL}/data/search/${form.id}`, {
@@ -102,13 +105,14 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 					{word.description}
 				</th>
 				<th className="displayAllWords__table__body__element">{word.notes}</th>
-				<th className="displayAllWords__table__body__element remove">
+				<th className="displayAllWords__table__body__element actions">
 					<button
 						className="displayAllWords__table__body__element-edit btn"
 						onClick={editWordOn}
 						data-id={word.id}
+						data-index={i + 1}
 					>
-						Edutuj
+						Edytuj
 					</button>
 					<button
 						className="displayAllWords__table__body__element-delete btn"
@@ -124,52 +128,94 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 	return (
 		<section className="displayAllWords">
 			<h2 className="displayAllWords__heading headingH3">Twój słownik</h2>
-			<table className="displayAllWords__table">
-				<thead className="displayAllWords__table__heading">
-					<tr className="displayAllWords__table__heading__row">
-						<th className="displayAllWords__table__heading__element ordinal-number-head">
-							L.p.
-						</th>
-						<th className="displayAllWords__table__heading__element">Tytuł</th>
-						<th className="displayAllWords__table__heading__element">
-							Znaczenie
-						</th>
-						<th className="displayAllWords__table__heading__element">
-							Notatki
-						</th>
-					</tr>
-				</thead>
-				<tbody className="displayAllWords__table__body">{allWords}</tbody>
-			</table>
-			{edit && (
-				<form onSubmit={editWord} className="displayAllWords__edit">
-					<label>
-						<input
-							type="text"
-							value={form.title}
-							name="title"
-							onChange={e => updateForm("title", e.target.value)}
-						/>
-					</label>
-					<label>
-						<input
-							type="text"
-							name="description"
-							value={form.description}
-							onChange={e => updateForm("description", e.target.value)}
-						/>
-					</label>
-					<label>
-						<input
-							type="text"
-							name="notes"
-							value={form.notes}
-							onChange={e => updateForm("notes", e.target.value)}
-						/>
-					</label>
-					<button type="submit">Zapisz</button>
-				</form>
-			)}
+			<div className="displayAllWords__table-wrapper">
+				<table className="displayAllWords__table">
+					<thead className="displayAllWords__table__heading">
+						<tr className="displayAllWords__table__heading__row">
+							<th className="displayAllWords__table__heading__element ordinal-number-head">
+								L.p.
+							</th>
+							<th className="displayAllWords__table__heading__element title">
+								Tytuł
+							</th>
+							<th className="displayAllWords__table__heading__element">
+								Znaczenie
+							</th>
+							<th className="displayAllWords__table__heading__element">
+								Notatki
+							</th>
+						</tr>
+					</thead>
+					<tbody className="displayAllWords__table__body">{allWords}</tbody>
+				</table>
+
+				{edit && (
+					<div className="displayAllWords__edit__form-wrapper">
+						<form
+							onSubmit={editWord}
+							className="displayAllWords__edit__form"
+							style={{
+								top: marginForm,
+							}}
+						>
+							<label className="displayAllWords__edit__form__label">
+								<fieldset className="displayAllWords__edit__form__fieldset">
+									<legend className="displayAllWords__edit__form__legend">
+										Title
+									</legend>
+
+									<input
+										type="text"
+										value={form.title}
+										name="title"
+										onChange={e => updateForm("title", e.target.value)}
+										className="displayAllWords__edit__form__input"
+									/>
+								</fieldset>
+							</label>
+							<label className="displayAllWords__edit__form__label">
+								<fieldset className="displayAllWords__edit__form__fieldset">
+									<legend className="displayAllWords__edit__form__legend">
+										Description
+									</legend>
+									<input
+										type="text"
+										name="description"
+										value={form.description}
+										onChange={e => updateForm("description", e.target.value)}
+										className="displayAllWords__edit__form__input"
+									/>
+								</fieldset>
+							</label>
+							<label className="displayAllWords__edit__form__label">
+								<fieldset className="displayAllWords__edit__form__fieldset">
+									<legend className="displayAllWords__edit__form__legend">
+										Notes
+									</legend>
+									<textarea
+										name="notes"
+										value={form.notes}
+										onChange={e => updateForm("notes", e.target.value)}
+										className="displayAllWords__edit__form__textarea"
+									/>
+								</fieldset>
+							</label>
+							<button
+								type="submit"
+								className="displayAllWords__edit__form__btn btn"
+							>
+								Zapisz
+							</button>
+							<button
+								onClick={() => setEdit(false)}
+								className="displayAllWords__edit__form__btn-close btn"
+							>
+								Anuluj
+							</button>
+						</form>
+					</div>
+				)}
+			</div>
 		</section>
 	);
 };
