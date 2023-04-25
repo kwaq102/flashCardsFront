@@ -1,4 +1,4 @@
-import React, { FormEvent, MouseEvent, useRef, useState } from "react";
+import React, { FormEvent, MouseEvent, useState } from "react";
 import { MAIN_URL } from "../../utils/url";
 import { WordEntity } from "types";
 

@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useContext } from "react";
 import { LoggedContext } from "../App";
 import { useNavigate } from "react-router-dom";
-import Dictionary from "./Dictionary";
 import LogOutButton from "./LogOutButton";
 import { WordEntity } from "types";
+import DisplayRandomWord from "../components/WordsComponents/DisplayRandomWord";
 
 interface Props {
 	words: WordEntity[];
@@ -25,7 +25,7 @@ const UserPage = ({ words, handleWords, onWordsChange }: Props) => {
 			) : (
 				<>
 					<h2 className="headingH2">Strona użytkownika</h2>
-					<Dictionary
+					<DisplayRandomWord
 						words={words}
 						handleWords={handleWords}
 						onWordsChange={onWordsChange}

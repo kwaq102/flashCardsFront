@@ -3,7 +3,6 @@ import React, {
 	Dispatch,
 	MouseEvent,
 	SetStateAction,
-	useEffect,
 	useState,
 } from "react";
 import { MAIN_URL } from "../../utils/url";
@@ -22,6 +21,7 @@ const DisplayRandomWord = ({ words, handleWords, onWordsChange }: Props) => {
 
 	const options = () => {
 		return words.map((word, i) => {
+			if (i >= 20) return null;
 			return (
 				<option key={i + 1} value={i + 1}>
 					{i + 1}

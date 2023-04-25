@@ -62,6 +62,7 @@ function App() {
 
 	return (
 		<div className="App">
+			{/* TODO banner wywalić do osobnego komponentu */}
 			<div className="App__bannerTop">
 				{logged ? (
 					<Link to="/" className="App__bannerTop__btn" onClick={handleLogOut}>
