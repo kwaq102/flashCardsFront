@@ -1,0 +1,14 @@
+.topArrow {
+	position: fixed;
+	right: 5%;
+	bottom: 5%;
+
+	.topArrow__icon {
+		width: 40px;
+		cursor: pointer;
+
+		&:hover {
+			transform: scale(1.1);
+		}
+	}
+}

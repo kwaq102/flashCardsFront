@@ -1,6 +1,13 @@
-import React, { FormEvent, MouseEvent, useState } from "react";
+import React, {
+	FormEvent,
+	MouseEvent,
+	UIEvent,
+	useEffect,
+	useState,
+} from "react";
 import { MAIN_URL } from "../../utils/url";
 import { WordEntity } from "types";
+import TopArrow from "../TopArrow";
 
 interface Props {
 	words: WordEntity[];
@@ -16,6 +23,15 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 		notes: "",
 	});
 	const [marginForm, setMarginForm] = useState(0);
+	const [isArrow, setIsArrow] = useState(false);
+
+	useEffect(() => {
+		window.addEventListener("scroll", showArrow);
+
+		return () => {
+			window.removeEventListener("scroll", showArrow);
+		};
+	}, []);
 
 	const removeWord = async (e: MouseEvent<HTMLButtonElement>) => {
 		if (!window.confirm("Czy na pewno?")) return;
@@ -125,6 +141,13 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 			</tr>
 		));
 
+	const showArrow = () => {
+		if (window.pageYOffset >= 300) {
+			setIsArrow(true);
+		} else {
+			setIsArrow(false);
+		}
+	};
 	return (
 		<section className="displayAllWords">
 			<h2 className="displayAllWords__heading headingH3">Twój słownik</h2>
@@ -216,6 +239,7 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 					</div>
 				)}
 			</div>
+			{isArrow && <TopArrow />}
 		</section>
 	);
 };
