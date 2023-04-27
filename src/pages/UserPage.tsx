@@ -8,7 +8,6 @@ import DisplayRandomWord from "../components/WordsComponents/DisplayRandomWord";
 interface Props {
 	words: WordEntity[];
 	onWordsChange: () => void;
-
 	handleWords: Dispatch<SetStateAction<WordEntity[]>>;
 }
 

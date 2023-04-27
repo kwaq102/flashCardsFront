@@ -1,13 +1,9 @@
-import React, {
-	FormEvent,
-	MouseEvent,
-	UIEvent,
-	useEffect,
-	useState,
-} from "react";
+import React, { FormEvent, MouseEvent, useEffect, useState } from "react";
 import { MAIN_URL } from "../../utils/url";
 import { WordEntity } from "types";
 import TopArrow from "../TopArrow";
+import Pagination from "../Pagination/Pagination";
+import ArrowPagination from "../Pagination/ArrowPagination";
 
 interface Props {
 	words: WordEntity[];
@@ -25,14 +21,8 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 	const [marginForm, setMarginForm] = useState(0);
 	const [isArrow, setIsArrow] = useState(false);
 
-	useEffect(() => {
-		window.addEventListener("scroll", showArrow);
-
-		return () => {
-			window.removeEventListener("scroll", showArrow);
-		};
-	}, []);
-
+	const [currentPage, setCurrentPage] = useState(1);
+	const [wordsPerPage, setWordsPerPage] = useState(15);
 	const removeWord = async (e: MouseEvent<HTMLButtonElement>) => {
 		if (!window.confirm("Czy na pewno?")) return;
 
@@ -95,12 +85,8 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 		onWordsChange();
 		// TODO Poszkać i przypomnieć skąd sie bierze ten refresh
 	};
-	const updateForm = (key: string, value: string) => {
-		setForm(form => ({
-			...form,
-			[key]: value,
-		}));
-	};
+	const indexOfLastWord = currentPage * wordsPerPage;
+	const indexOfFirstWord = indexOfLastWord - wordsPerPage;
 	const allWords = words
 		.sort((prev, curr) => {
 			if (prev.title.toUpperCase() < curr.title.toUpperCase()) {
@@ -112,7 +98,11 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 			}
 		})
 		.map((word, i) => (
-			<tr key={word.id} className="displayAllWords__table__body__row">
+			<tr
+				key={word.id}
+				className="displayAllWords__table__body__row"
+				data-index={i + 1}
+			>
 				<th className="displayAllWords__table__body__element ordinal-number">
 					{i + 1}
 				</th>
@@ -141,13 +131,33 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 			</tr>
 		));
 
+	// const currentWord = allWords.slice(indexOfFirstWord, indexOfLastWord);
+
+	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+	useEffect(() => {
+		window.addEventListener("scroll", showArrow);
+
+		return () => {
+			window.removeEventListener("scroll", showArrow);
+		};
+	}, []);
+
+	const updateForm = (key: string, value: string) => {
+		setForm(form => ({
+			...form,
+			[key]: value,
+		}));
+	};
+
 	const showArrow = () => {
-		if (window.pageYOffset >= 300) {
+		if (window.pageYOffset >= 250) {
 			setIsArrow(true);
 		} else {
 			setIsArrow(false);
 		}
 	};
+
 	return (
 		<section className="displayAllWords">
 			<h2 className="displayAllWords__heading headingH3">Twój słownik</h2>
@@ -169,8 +179,29 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 							</th>
 						</tr>
 					</thead>
-					<tbody className="displayAllWords__table__body">{allWords}</tbody>
+					<tbody className="displayAllWords__table__body">
+						{allWords.slice(indexOfFirstWord, indexOfLastWord)}
+					</tbody>
 				</table>
+				<ArrowPagination
+					wordsPerPage={wordsPerPage}
+					totalWords={allWords.length}
+					text="Prev"
+					currentPage={currentPage}
+					paginate={paginate}
+				/>
+				<Pagination
+					wordsPerPage={wordsPerPage}
+					totalWords={allWords.length}
+					paginate={paginate}
+				/>
+				<ArrowPagination
+					wordsPerPage={wordsPerPage}
+					totalWords={allWords.length}
+					text="Next"
+					currentPage={currentPage}
+					paginate={paginate}
+				/>
 
 				{edit && (
 					<div className="displayAllWords__edit__form-wrapper">

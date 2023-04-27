@@ -1,10 +1,9 @@
-import React, { MouseEvent, useState } from "react";
+import React from "react";
 
 import arrow from "../img/arrow.svg";
 
 const TopArrow = () => {
-	const goToTop = (e: MouseEvent) => {
-		console.log("działą");
+	const goToTop = () => {
 		window.scrollTo({
 			top: 0,
 			behavior: "smooth",
