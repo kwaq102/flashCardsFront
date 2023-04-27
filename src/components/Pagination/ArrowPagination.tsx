@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface Props {
 	wordsPerPage: number;
@@ -15,7 +15,15 @@ const ArrowPagination = ({
 	totalWords,
 	wordsPerPage,
 }: Props) => {
-	console.log(currentPage);
+	const [borderRadius, setBorderRadius] = useState("");
+
+	useEffect(() => {
+		if (text === "Prev") {
+			setBorderRadius("5px 0 0 5px");
+		} else {
+			setBorderRadius("0 5px 5px 0");
+		}
+	}, []);
 
 	const handleCurrentPage = () => {
 		switch (text) {
@@ -32,7 +40,17 @@ const ArrowPagination = ({
 		}
 	};
 
-	return <button onClick={handleCurrentPage}>{text}</button>;
+	return (
+		<button
+			className="pagination__button pagination-btn"
+			onClick={handleCurrentPage}
+			style={{
+				borderRadius,
+			}}
+		>
+			{text}
+		</button>
+	);
 };
 
 export default ArrowPagination;

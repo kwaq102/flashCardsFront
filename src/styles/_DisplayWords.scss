@@ -1,5 +1,6 @@
 .displayAllWords {
 	@include widthContent();
+	margin-bottom: 100px;
 
 	.headingH3 {
 		@include headingH3();

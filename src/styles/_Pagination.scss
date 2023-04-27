@@ -1,0 +1,36 @@
+.pagination {
+	margin-top: 5px;
+	display: flex;
+	justify-content: center;
+
+	.pagination__navigation {
+		.pagination__navigation__list {
+			display: flex;
+
+			.pagination__navigation__list__element {
+				list-style: none;
+			}
+		}
+	}
+
+	.pagination-btn {
+		padding: 10px 15px;
+		font-size: 1.6rem;
+		color: #fff;
+		background-color: #626c80;
+		border: 1px solid #3b404d;
+		letter-spacing: 1px;
+
+		&:hover {
+			color: orange;
+		}
+	}
+	.active {
+		font-weight: bold;
+		// border: 1px solid #1a1f27;
+		background-color: orange;
+		&:hover {
+			color: white;
+		}
+	}
+}

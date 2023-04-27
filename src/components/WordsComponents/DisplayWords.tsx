@@ -131,8 +131,6 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 			</tr>
 		));
 
-	// const currentWord = allWords.slice(indexOfFirstWord, indexOfLastWord);
-
 	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
 	useEffect(() => {
@@ -183,24 +181,12 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 						{allWords.slice(indexOfFirstWord, indexOfLastWord)}
 					</tbody>
 				</table>
-				<ArrowPagination
-					wordsPerPage={wordsPerPage}
-					totalWords={allWords.length}
-					text="Prev"
-					currentPage={currentPage}
-					paginate={paginate}
-				/>
+
 				<Pagination
 					wordsPerPage={wordsPerPage}
 					totalWords={allWords.length}
 					paginate={paginate}
-				/>
-				<ArrowPagination
-					wordsPerPage={wordsPerPage}
-					totalWords={allWords.length}
-					text="Next"
 					currentPage={currentPage}
-					paginate={paginate}
 				/>
 
 				{edit && (
