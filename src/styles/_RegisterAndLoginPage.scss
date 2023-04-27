@@ -42,12 +42,6 @@
 			width: 100%;
 			margin-top: 10px;
 		}
-		.registerPage__added-success-text {
-			@include text();
-			margin-top: 10px;
-			color: #22c722;
-			text-align: center;
-		}
 
 		.loginPage__registerText {
 			@include text();

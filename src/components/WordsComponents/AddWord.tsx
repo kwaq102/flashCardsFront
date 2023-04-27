@@ -1,12 +1,14 @@
-import React, { SyntheticEvent, useContext, useState } from "react";
+import React, { SyntheticEvent, useContext, useEffect, useState } from "react";
 import { LoggedContext } from "../../App";
 import { MAIN_URL } from "../../utils/url";
+import SuccessInfo from "../SuccessInfo";
 
 interface Props {
 	onWordsChange: () => void;
 }
 
 const AddWord = ({ onWordsChange }: Props) => {
+	const [addedWord, setAddedWord] = useState(false);
 	const [form, setForm] = useState({
 		title: "",
 		description: "",
@@ -21,6 +23,14 @@ const AddWord = ({ onWordsChange }: Props) => {
 		});
 	};
 
+	//TODO może uda się te useEffecty wynieść do komponentu nadrzędnego z successem
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setAddedWord(false);
+		}, 5000);
+
+		return () => clearInterval(timer);
+	}, [addedWord]);
 	const context = useContext(LoggedContext);
 	const { logged, user } = context;
 	if (!user) return null;
@@ -40,6 +50,7 @@ const AddWord = ({ onWordsChange }: Props) => {
 			});
 			onWordsChange();
 			clearForm();
+			setAddedWord(true);
 		} catch (e) {
 			console.log(e);
 		}
@@ -88,6 +99,7 @@ const AddWord = ({ onWordsChange }: Props) => {
 				</label>
 				<button className="addWord__form-button btn">Dodaj</button>
 			</form>
+			{addedWord && <SuccessInfo text="Dodano nowe słowo." />}
 		</section>
 	);
 };

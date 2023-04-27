@@ -1,8 +1,8 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { MAIN_URL } from "../utils/url";
 import { UserEntity } from "types";
 import ErrorMessage from "../components/ErrorMessage";
+import SuccessInfo from "../components/SuccessInfo";
 
 const RegisterPage = () => {
 	const [form, setForm] = useState({
@@ -61,6 +61,9 @@ const RegisterPage = () => {
 
 	const addUser = async (e: SyntheticEvent) => {
 		e.preventDefault();
+
+		console.log(form);
+
 		if (emailError || nameError || passwordError || errorMessage) {
 			return;
 		}
@@ -108,9 +111,9 @@ const RegisterPage = () => {
 						<input
 							className="registerPage__form-input"
 							type="text"
-							name="name"
+							name="userName"
 							value={form.userName}
-							onChange={e => updateForm("name", e.target.value)}
+							onChange={e => updateForm("userName", e.target.value)}
 						/>
 						{nameError && (
 							<ErrorMessage errorMessage="Nieprawidłowa nazwa użytkownika" />
@@ -149,11 +152,7 @@ const RegisterPage = () => {
 					>
 						Zarejestruj
 					</button>
-					{addedUser && (
-						<p className="registerPage__added-success-text">
-							Użytkownik został dodany!
-						</p>
-					)}
+					{addedUser && <SuccessInfo text="Użytkownik został dodany!" />}
 				</form>
 			</section>
 		</>
