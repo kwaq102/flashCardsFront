@@ -18,7 +18,7 @@ const UserPage = ({ words, handleWords, onWordsChange }: Props) => {
 	const { logged, handleLogIn, user } = context;
 
 	return (
-		<section className="userPage">
+		<section className="userPage page">
 			{!logged ? (
 				<p>Jesteś niezalogowany</p>
 			) : (

@@ -64,7 +64,7 @@ const AddWord = ({ onWordsChange }: Props) => {
 	};
 
 	return (
-		<section className="addWord">
+		<section className="addWord page">
 			<h3 className="headingH3">Dodaj nowe słówko</h3>
 
 			<form onSubmit={addWord} className="addWord__form">

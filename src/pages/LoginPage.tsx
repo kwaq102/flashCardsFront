@@ -25,7 +25,7 @@ const LoginPage = () => {
 
 	if (logged) {
 		return (
-			<section className="loginPage">
+			<section className="loginPage page">
 				<div className="loginPage__log-info">
 					<p className="loginPage__log-info-text">
 						Jesteś już zalogowany jako {user ? user.userName : ""}.
@@ -77,7 +77,7 @@ const LoginPage = () => {
 	};
 
 	return (
-		<section className="loginPage">
+		<section className="loginPage page">
 			<h2 className="headingH2">Logowanie</h2>
 			<form onSubmit={getUser} className="loginPage__form">
 				<label className="loginPage__form-label">

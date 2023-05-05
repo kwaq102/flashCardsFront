@@ -106,7 +106,7 @@ const RegisterPage = () => {
 
 	return (
 		<>
-			<section className="registerPage">
+			<section className="registerPage page">
 				<h2 className="headingH2">Rejestracja nowego użytkownika</h2>
 
 				{logged ? (

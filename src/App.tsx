@@ -14,6 +14,7 @@ import AddWord from "./components/WordsComponents/AddWord";
 import DisplayWords from "./components/WordsComponents/DisplayWords";
 import { MAIN_URL } from "./utils/url";
 import { WordEntity } from "types";
+import Footer from "./components/Footer";
 
 interface LoggedContextType {
 	logged: boolean;
@@ -37,8 +38,6 @@ function App() {
 	const [words, setWords] = useState<WordEntity[]>([]);
 
 	// TODO ustawić logged na jakis stan w localstorage??
-	console.log(logged);
-
 	const handleLogIn = () => {
 		setLogged(true);
 	};
@@ -117,6 +116,7 @@ function App() {
 					<Route path="*" element={<ErrorPage />} />
 				</Routes>
 			</LoggedContext.Provider>
+			<Footer />
 		</div>
 	);
 }

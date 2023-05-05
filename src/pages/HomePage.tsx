@@ -7,7 +7,7 @@ const HomePage = () => {
 	const { logged } = context;
 
 	return (
-		<div className="homePage__content">
+		<div className="homePage__content page">
 			<h2 className="homePage__heading heading-h2">Witaj!</h2>
 			<p className="homePage__welcome-text">
 				Witam Cię na stronie głównej aplikacji zaliczeniowej kursu MekaK.

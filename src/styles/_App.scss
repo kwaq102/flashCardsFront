@@ -14,10 +14,13 @@ body {
 }
 
 .App {
-	min-height: 100vh;
 	font-family: "Roboto", sans-serif;
 
 	.headingH2 {
 		@include headingH2();
+	}
+
+	.page {
+		min-height: 90vh;
 	}
 }

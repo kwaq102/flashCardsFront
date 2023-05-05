@@ -102,7 +102,7 @@ const DisplayRandomWord = ({ words, handleWords, onWordsChange }: Props) => {
 			</p>
 
 			<button onClick={randomWord} className="drawWords__drawButton btn">
-				Pokaż
+				Losuj
 			</button>
 			<select
 				name="words-number"
