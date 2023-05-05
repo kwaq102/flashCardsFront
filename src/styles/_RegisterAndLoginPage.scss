@@ -5,6 +5,11 @@
 	width: 50%;
 	position: relative;
 
+	@media (max-width: map-get($breakpoints, m)) {
+		margin-top: 50px;
+		width: 80%;
+	}
+
 	.registerPage__heading-h2 {
 		@include headingH2();
 	}
@@ -17,8 +22,12 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 
+		@media (max-width: map-get($breakpoints, m)) {
+			width: 70%;
+		}
+
 		.registerPage__form-label {
-			margin: 5px 0;
+			margin: 5px auto;
 			font-size: 1.2rem;
 			font-weight: 300;
 
@@ -36,6 +45,10 @@
 			@include btn();
 			width: 100%;
 			margin-top: 10px;
+			@media (max-width: map-get($breakpoints, m)) {
+				width: 50%;
+				margin: 0 auto;
+			}
 		}
 
 		.registerPage__log-info-text {

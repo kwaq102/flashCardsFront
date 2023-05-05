@@ -1,6 +1,7 @@
 .navigation {
 	.navigation__list {
 		display: flex;
+		transition: all 0.2s linear;
 
 		.navigation__list__element-link {
 			list-style: none;
@@ -18,5 +19,44 @@
 				background-color: #ffa500;
 			}
 		}
+
+		@media (max-width: map-get($breakpoints, m)) {
+			position: fixed;
+			top: 0;
+			left: -230px;
+			height: 100%;
+			width: 230px;
+			flex-direction: column;
+			background-color: #000;
+			z-index: 2;
+		}
+	}
+
+	.navigation__arrow {
+		display: none;
+		cursor: pointer;
+		transform: rotate(-90deg);
+		transition: all 0.2s linear;
+
+		@media (max-width: map-get($breakpoints, m)) {
+			display: block;
+			position: fixed;
+			top: 5px;
+			left: 235px;
+			z-index: 2;
+		}
+
+		.navigation__arrow-img {
+			width: 35px;
+		}
+	}
+
+	.navigation__arrow.show {
+		transform: rotate(90deg);
+		left: 5px;
+	}
+
+	.navigation__list.show {
+		left: 0;
 	}
 }

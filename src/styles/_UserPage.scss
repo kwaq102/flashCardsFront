@@ -48,6 +48,7 @@
 		width: 100%;
 		display: flex;
 		flex-wrap: wrap;
+		justify-content: space-around;
 
 		.drawWords__text {
 			width: 100%;
@@ -60,6 +61,14 @@
 			background-color: #3f4552;
 			border-radius: 5px;
 			border: 1px solid #272b33;
+
+			@media (max-width: map-get($breakpoints, m)) {
+				width: 45%;
+			}
+
+			@media (max-width: map-get($breakpoints, s)) {
+				width: 80%;
+			}
 
 			.drawWords__content-headingH4 {
 				margin: 5px 0;

@@ -12,6 +12,10 @@
 	letter-spacing: 2px;
 	font-weight: 700;
 	text-align: center;
+
+	@media (max-width: map-get($breakpoints, m)) {
+		font-size: 3rem;
+	}
 }
 
 @mixin headingH3() {
@@ -56,4 +60,8 @@
 	width: 80%;
 	max-width: 1000px;
 	margin: 0 auto;
+
+	@media (max-width: map-get($breakpoints, m)) {
+		width: 90%;
+	}
 }

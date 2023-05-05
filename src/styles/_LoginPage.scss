@@ -5,6 +5,9 @@
 	width: 50%;
 	position: relative;
 
+	@media (max-width: map-get($breakpoints, m)) {
+		width: 90%;
+	}
 	.loginPage__heading-h2 {
 		@include headingH2();
 	}

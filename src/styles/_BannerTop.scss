@@ -4,6 +4,10 @@
 	justify-content: space-between;
 	background-color: #000;
 
+	@media (max-width: 770px) {
+		background-color: transparent;
+	}
+
 	.App__bannerTop__btn {
 		@include link();
 		display: block;
