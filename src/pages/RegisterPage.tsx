@@ -1,10 +1,15 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { SyntheticEvent, useContext, useEffect, useState } from "react";
 import { MAIN_URL } from "../utils/url";
 import { UserEntity } from "types";
 import ErrorMessage from "../components/ErrorMessage";
 import SuccessInfo from "../components/SuccessInfo";
+import { LoggedContext } from "../App";
+import LogOutButton from "./LogOutButton";
 
 const RegisterPage = () => {
+	const context = useContext(LoggedContext);
+	const { logged } = context;
+
 	const [form, setForm] = useState({
 		id: "",
 		userName: "",
@@ -104,56 +109,65 @@ const RegisterPage = () => {
 			<section className="registerPage">
 				<h2 className="headingH2">Rejestracja nowego użytkownika</h2>
 
-				<form onSubmit={addUser} className="registerPage__form">
-					<label className="registerPage__form-label">
-						Nazwa użytkownika:
-						<br />
-						<input
-							className="registerPage__form-input"
-							type="text"
-							name="userName"
-							value={form.userName}
-							onChange={e => updateForm("userName", e.target.value)}
-						/>
-						{nameError && (
-							<ErrorMessage errorMessage="Nieprawidłowa nazwa użytkownika" />
-						)}
-					</label>
-					<label className="registerPage__form-label">
-						E-mail:
-						<br />
-						<input
-							className="registerPage__form-input"
-							type="email"
-							name="email"
-							value={form.email}
-							onChange={e => updateForm("email", e.target.value)}
-						/>
-						{emailError && <ErrorMessage errorMessage={errorMessage} />}
-					</label>
-					<label className="registerPage__form-label">
-						Hasło:
-						<br />
-						<input
-							className="registerPage__form-input"
-							type="password"
-							name="password"
-							value={form.password}
-							onChange={e => updateForm("password", e.target.value)}
-						/>
-						{passwordError && (
-							<ErrorMessage errorMessage="Hasło musi skłądać się z co najmniej 5 znaków" />
-						)}
-					</label>
-					<button
-						type="submit"
-						className="registerPage__form-button btn"
-						onClick={validationForm}
-					>
-						Zarejestruj
-					</button>
-					{addedUser && <SuccessInfo text="Użytkownik został dodany!" />}
-				</form>
+				{logged ? (
+					<div className="registerPage__log-info">
+						<p className="registerPage__log-info-text">
+							Aby zarejestrować nowego użytkownika nie można być zalogowanym
+						</p>
+						<LogOutButton />
+					</div>
+				) : (
+					<form onSubmit={addUser} className="registerPage__form">
+						<label className="registerPage__form-label">
+							Nazwa użytkownika:
+							<br />
+							<input
+								className="registerPage__form-input"
+								type="text"
+								name="userName"
+								value={form.userName}
+								onChange={e => updateForm("userName", e.target.value)}
+							/>
+							{nameError && (
+								<ErrorMessage errorMessage="Nieprawidłowa nazwa użytkownika" />
+							)}
+						</label>
+						<label className="registerPage__form-label">
+							E-mail:
+							<br />
+							<input
+								className="registerPage__form-input"
+								type="email"
+								name="email"
+								value={form.email}
+								onChange={e => updateForm("email", e.target.value)}
+							/>
+							{emailError && <ErrorMessage errorMessage={errorMessage} />}
+						</label>
+						<label className="registerPage__form-label">
+							Hasło:
+							<br />
+							<input
+								className="registerPage__form-input"
+								type="password"
+								name="password"
+								value={form.password}
+								onChange={e => updateForm("password", e.target.value)}
+							/>
+							{passwordError && (
+								<ErrorMessage errorMessage="Hasło musi skłądać się z co najmniej 5 znaków" />
+							)}
+						</label>
+						<button
+							type="submit"
+							className="registerPage__form-button btn"
+							onClick={validationForm}
+						>
+							Zarejestruj
+						</button>
+						{addedUser && <SuccessInfo text="Użytkownik został dodany!" />}
+					</form>
+				)}
 			</section>
 		</>
 	);

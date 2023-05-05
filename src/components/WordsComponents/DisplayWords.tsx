@@ -3,7 +3,6 @@ import { MAIN_URL } from "../../utils/url";
 import { WordEntity } from "types";
 import TopArrow from "../TopArrow";
 import Pagination from "../Pagination/Pagination";
-import ArrowPagination from "../Pagination/ArrowPagination";
 
 interface Props {
 	words: WordEntity[];

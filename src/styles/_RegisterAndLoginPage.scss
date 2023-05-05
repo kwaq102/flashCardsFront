@@ -1,33 +1,28 @@
-.registerPage,
-.loginPage {
+.registerPage {
 	@include contentCenter();
 	justify-content: flex-start;
 	height: 100vh;
 	width: 50%;
 	position: relative;
 
-	.registerPage__heading-h2,
-	.loginPage__heading-h2 {
+	.registerPage__heading-h2 {
 		@include headingH2();
 	}
 
 	.registerPage__form,
-	.loginPage__form,
-	.loginPage__log-info {
+	.registerPage__log-info {
 		@include contentCenter();
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 
-		.registerPage__form-label,
-		.loginPage__form-label {
+		.registerPage__form-label {
 			margin: 5px 0;
 			font-size: 1.2rem;
 			font-weight: 300;
 
-			.registerPage__form-input,
-			.loginPage__form-input {
+			.registerPage__form-input {
 				@include input();
 			}
 
@@ -43,32 +38,10 @@
 			margin-top: 10px;
 		}
 
-		.loginPage__registerText {
-			@include text();
-			margin-top: 10px;
-
-			.loginPage__registerText-linkToRegister {
-				@include link();
-				color: #ffa500;
-			}
-		}
-
-		.loginPage__log-info-text {
+		.registerPage__log-info-text {
 			margin-bottom: 20px;
 			text-align: center;
 			font-size: 2rem;
-		}
-
-		.loginPage__link__linkHomePage {
-			@include link();
-			color: white;
-
-			&:hover {
-				color: #ffa500;
-			}
-		}
-		.loginPage__log-info__btn {
-			font-size: 1.6rem;
 		}
 	}
 }

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { LoggedContext } from "../App";
 
 const HomePage = () => {
+	const context = useContext(LoggedContext);
+	const { logged } = context;
+
 	return (
 		<div className="homePage__content">
 			<h2 className="homePage__heading heading-h2">Witaj!</h2>
@@ -9,14 +13,16 @@ const HomePage = () => {
 				Witam Cię na stronie głównej aplikacji zaliczeniowej kursu MekaK.
 			</p>
 
-			<div className="homePage__wrapperButtons">
-				<Link to="/register" className="homePage__button btn">
-					Zarejestruj
-				</Link>
-				<Link to="/login" className="homePage__button btn">
-					Zaloguj
-				</Link>
-			</div>
+			{!logged && (
+				<div className="homePage__wrapperButtons">
+					<Link to="/register" className="homePage__button btn">
+						Zarejestruj
+					</Link>
+					<Link to="/login" className="homePage__button btn">
+						Zaloguj
+					</Link>
+				</div>
+			)}
 			<p className="homePage__descriptiont">
 				Aplikacja ma na celu pomóc w nauce języka angielskiego, a dokładnie
 				powtarzaniu i zapamiętywaniu słówek. Aplikacja o roboczej nazwie

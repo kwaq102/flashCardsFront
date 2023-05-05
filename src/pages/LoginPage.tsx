@@ -1,7 +1,6 @@
 import React, { SyntheticEvent, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoggedContext } from "../App";
-import { UserEntity } from "types";
 
 const LoginPage = () => {
 	const [form, setForm] = useState({

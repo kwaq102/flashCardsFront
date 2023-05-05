@@ -9,7 +9,8 @@
 		@include headingH2();
 	}
 
-	.loginPage__form {
+	.loginPage__form,
+	.loginPage__log-info {
 		@include contentCenter();
 		position: absolute;
 		top: 50%;
@@ -31,6 +32,34 @@
 			width: 100%;
 			margin-top: 10px;
 		}
+
+		.loginPage__registerText {
+			@include text();
+			margin-top: 10px;
+
+			.loginPage__registerText-linkToRegister {
+				@include link();
+				color: #ffa500;
+			}
+		}
+		.loginPage__log-info-text {
+			margin-bottom: 20px;
+			text-align: center;
+			font-size: 2rem;
+		}
+
+		.loginPage__link__linkHomePage {
+			@include link();
+			color: white;
+
+			&:hover {
+				color: #ffa500;
+			}
+		}
+		.loginPage__log-info__btn {
+			font-size: 1.6rem;
+		}
+
 		.loginPage__added-success-text {
 			@include text();
 			margin-top: 10px;
