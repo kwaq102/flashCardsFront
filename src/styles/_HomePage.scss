@@ -6,7 +6,11 @@
 	@media (max-width: 1000px) {
 		width: 70%;
 	}
-
+	@media (max-width: map-get($breakpoints, s)) {
+		justify-content: flex-start;
+		margin-top: 10%;
+		width: 85%;
+	}
 	.heading-h2 {
 		@include headingH2();
 	}
@@ -30,6 +34,7 @@
 	.homePage__descriptiont {
 		font-size: 1.2rem;
 		text-align: justify;
+		font-family: "Open sans", sans-serif;
 		font-weight: 300;
 	}
 }

@@ -8,6 +8,7 @@
 	@media (max-width: map-get($breakpoints, m)) {
 		width: 90%;
 	}
+
 	.loginPage__heading-h2 {
 		@include headingH2();
 	}
@@ -19,6 +20,11 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
+
+		@media (max-width: map-get($breakpoints, m)) {
+			top: 40%;
+			width: 80%;
+		}
 
 		.loginPage__form-label {
 			margin: 5px 0;

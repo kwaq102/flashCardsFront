@@ -115,6 +115,9 @@
 .addWord {
 	@include widthContent();
 
+	@media (max-width: map-get($breakpoints, s)) {
+		margin-top: 10%;
+	}
 	.headingH3 {
 		@include headingH3();
 	}

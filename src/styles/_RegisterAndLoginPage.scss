@@ -10,6 +10,10 @@
 		width: 80%;
 	}
 
+	@media (max-width: map-get($breakpoints, s)) {
+		width: 90%;
+	}
+
 	.registerPage__heading-h2 {
 		@include headingH2();
 	}
@@ -24,6 +28,10 @@
 
 		@media (max-width: map-get($breakpoints, m)) {
 			width: 70%;
+		}
+		@media (max-width: map-get($breakpoints, m)) {
+			top: 40%;
+			width: 90%;
 		}
 
 		.registerPage__form-label {

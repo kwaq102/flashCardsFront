@@ -4,6 +4,7 @@ import { MAIN_URL } from "../../utils/url";
 import Pagination from "../Pagination/Pagination";
 import EditWord from "./EditWord";
 import RowTable from "./RowTable";
+import TableMobile from "../TableMobile/TableMobile";
 
 interface Props {
 	words: WordEntity[];
@@ -110,35 +111,19 @@ const Table = ({ words, onWordsChange }: Props) => {
 	return (
 		<>
 			<div className="displayAllWords__table-wrapper">
-				<table className="displayAllWords__table">
-					<thead className="displayAllWords__table__heading">
-						<tr className="displayAllWords__table__heading__row">
-							<th className="displayAllWords__table__heading__element ordinal-number-head">
-								L.p.
-							</th>
-							<th className="displayAllWords__table__heading__element title">
-								Tytuł
-							</th>
-							<th className="displayAllWords__table__heading__element">
-								Znaczenie
-							</th>
-							<th className="displayAllWords__table__heading__element">
-								Notatki
-							</th>
-						</tr>
-					</thead>
-					<tbody className="displayAllWords__table__body">
-						{allWords.slice(indexOfFirstWord, indexOfLastWord)}
-					</tbody>
-				</table>
-
+				<TableMobile
+					words={words}
+					editWordOn={editWordOn}
+					removeWord={removeWord}
+					indexOfFirstWord={indexOfFirstWord}
+					indexOfLastWord={indexOfLastWord}
+				/>
 				<Pagination
 					wordsPerPage={wordsPerPage}
 					totalWords={allWords.length}
 					paginate={paginate}
 					currentPage={currentPage}
 				/>
-
 				{edit && (
 					<EditWord
 						form={form}

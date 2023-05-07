@@ -1,0 +1,68 @@
+.displayAllWords__table-mobile {
+	width: 90%;
+	margin: 0 auto;
+
+	.displayAllWords__table-mobile__row {
+		display: grid;
+		grid-template-rows: auto 1fr;
+		grid-template-areas:
+			"title description"
+			"notes notes"
+			"button button";
+		margin-bottom: 10px;
+		padding: 15px;
+		background-color: #313842;
+		border: 1px solid #ccc;
+		border-bottom-width: 2px;
+		font-size: 1.2rem;
+		font-family: "Open sans", sans-serif;
+
+		.displayAllWords__table-mobile__heading__element {
+			text-align: left;
+			letter-spacing: 1px;
+			font-size: 1.4rem;
+			text-shadow: 1px 1px 6px rgba(0, 0, 0, 1);
+		}
+		.displayAllWords__table-mobile__cell {
+			padding-right: 10px;
+			font-weight: 300;
+		}
+
+		.title {
+			grid-area: title;
+			border-bottom: 1px solid gray;
+			padding-bottom: 5px;
+		}
+
+		.description {
+			text-align: right;
+			grid-area: description;
+			border-bottom: 1px solid gray;
+			padding-bottom: 5px;
+		}
+
+		.notes {
+			grid-area: notes;
+			padding-top: 10px;
+		}
+		.action-btns {
+			grid-area: button;
+			margin-top: 10px;
+			margin-left: auto;
+
+			// TODO to niżej się powtarza w zwykłęj tabeli
+			.btn {
+				margin: 0 2px;
+				padding: 5px;
+				text-transform: uppercase;
+				font-size: 0.9rem;
+				cursor: pointer;
+			}
+
+			.displayAllWords__table__body__element-delete {
+				width: 30px;
+				font-weight: bold;
+			}
+		}
+	}
+}
