@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, MouseEvent, SetStateAction, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { navList } from "../utils/navigationList";
 import { UserEntity } from "types";
@@ -7,10 +7,12 @@ import arrow from "../img/arrow-nav.svg";
 
 interface Props {
 	user: UserEntity | null;
+	showNav: boolean;
+	setShowNav: Dispatch<SetStateAction<boolean>>;
 }
 
-const Navigation = ({ user }: Props) => {
-	const [showNav, setShowNav] = useState(false);
+const Navigation = ({ user, showNav, setShowNav }: Props) => {
+	// const [showNav, setShowNav] = useState(false);
 	const userIdPath = user?.id ? user.id : "../login";
 
 	const navigation = navList.map(el => (
@@ -66,7 +68,9 @@ const Navigation = ({ user }: Props) => {
 
 			<div
 				className={showNav ? "navigation__arrow" : "navigation__arrow show"}
-				onClick={() => setShowNav(!showNav)}
+				onClick={() => {
+					setShowNav(!showNav);
+				}}
 			>
 				<img
 					src={arrow}

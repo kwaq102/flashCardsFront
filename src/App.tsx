@@ -1,4 +1,10 @@
-import React, { UIEvent, createContext, useEffect, useState } from "react";
+import React, {
+	MouseEvent,
+	MouseEventHandler,
+	createContext,
+	useEffect,
+	useState,
+} from "react";
 import { Route } from "react-router";
 import { Routes, Navigate, Link } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
@@ -8,13 +14,13 @@ import { UserEntity } from "../../back/types/user";
 import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
 
-import "./styles/index.scss";
 import Navigation from "./components/Navigation";
 import AddWord from "./components/WordsComponents/AddWord";
 import DisplayWords from "./components/WordsComponents/DisplayWords";
 import { MAIN_URL } from "./utils/url";
 import { WordEntity } from "types";
 import Footer from "./components/Footer";
+import "./styles/index.scss";
 
 interface LoggedContextType {
 	logged: boolean;
@@ -36,6 +42,7 @@ function App() {
 	const [logged, setLogged] = useState(false);
 	const [user, setUser] = useState<UserEntity | null>(null);
 	const [words, setWords] = useState<WordEntity[]>([]);
+	const [showNav, setShowNav] = useState(false);
 
 	// TODO ustawić logged na jakis stan w localstorage??
 	const handleLogIn = () => {
@@ -59,8 +66,16 @@ function App() {
 		refreshWords();
 	}, [logged]);
 
+	const hideNav = (e: any) => {
+		if (showNav) {
+			if (!e.target.className.includes("navigation__list")) {
+				setShowNav(false);
+			}
+		}
+	};
+
 	return (
-		<div className="App">
+		<div className="App" onClick={hideNav}>
 			{/* TODO banner wywalić do osobnego komponentu */}
 			<div className="App__bannerTop">
 				{logged ? (
@@ -73,7 +88,7 @@ function App() {
 					</Link>
 				)}
 
-				<Navigation user={user} />
+				<Navigation user={user} showNav={showNav} setShowNav={setShowNav} />
 			</div>
 			<LoggedContext.Provider
 				value={{
