@@ -1,4 +1,39 @@
-const TableDesktop = () => {
+import React, { MouseEvent } from "react";
+import { WordEntity } from "types";
+import RowTable from "../WordsComponents/RowTable";
+
+interface Props {
+	words: WordEntity[];
+	editWordOn: (e: MouseEvent) => void;
+	removeWord: (e: MouseEvent<HTMLButtonElement>) => void;
+	indexOfFirstWord: number;
+	indexOfLastWord: number;
+}
+const TableDesktop = ({
+	words,
+	editWordOn,
+	removeWord,
+	indexOfFirstWord,
+	indexOfLastWord,
+}: Props) => {
+	const allWords = words
+		.sort((prev, curr) => {
+			if (prev.title.toUpperCase() < curr.title.toUpperCase()) {
+				return -1;
+			} else if (prev.title.toUpperCase() > curr.title.toUpperCase()) {
+				return 1;
+			} else {
+				return 0;
+			}
+		})
+		.map((word, i) => (
+			<RowTable
+				word={word}
+				i={i}
+				editWordOn={editWordOn}
+				removeWord={removeWord}
+			/>
+		));
 	return (
 		<table className="displayAllWords__table">
 			<thead className="displayAllWords__table__heading">
@@ -15,9 +50,9 @@ const TableDesktop = () => {
 					<th className="displayAllWords__table__heading__element">Notatki</th>
 				</tr>
 			</thead>
-			{/* <tbody className="displayAllWords__table__body">
+			<tbody className="displayAllWords__table__body">
 				{allWords.slice(indexOfFirstWord, indexOfLastWord)}
-			</tbody> */}
+			</tbody>
 		</table>
 	);
 };

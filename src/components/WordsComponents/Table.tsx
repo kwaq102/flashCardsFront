@@ -1,10 +1,11 @@
-import React, { FormEvent, MouseEvent, useState } from "react";
+import React, { FormEvent, MouseEvent, useEffect, useState } from "react";
 import { WordEntity } from "types";
 import { MAIN_URL } from "../../utils/url";
 import Pagination from "../Pagination/Pagination";
 import EditWord from "./EditWord";
 import RowTable from "./RowTable";
 import TableMobile from "../TableMobile/TableMobile";
+import TableDesktop from "../TableDesktop/TableDesktop";
 
 interface Props {
 	words: WordEntity[];
@@ -20,6 +21,7 @@ const Table = ({ words, onWordsChange }: Props) => {
 		notes: "",
 	});
 	const [marginForm, setMarginForm] = useState(0);
+	const [widthScreen, setWidthScreen] = useState(0);
 
 	const [currentPage, setCurrentPage] = useState(1);
 	const [wordsPerPage, setWordsPerPage] = useState(15);
@@ -87,40 +89,44 @@ const Table = ({ words, onWordsChange }: Props) => {
 
 	const indexOfLastWord = currentPage * wordsPerPage;
 	const indexOfFirstWord = indexOfLastWord - wordsPerPage;
-	const allWords = words
-		.sort((prev, curr) => {
-			if (prev.title.toUpperCase() < curr.title.toUpperCase()) {
-				return -1;
-			} else if (prev.title.toUpperCase() > curr.title.toUpperCase()) {
-				return 1;
-			} else {
-				return 0;
-			}
-		})
-		.map((word, i) => (
-			<RowTable
-				word={word}
-				i={i}
-				editWordOn={editWordOn}
-				removeWord={removeWord}
-			/>
-		));
 
 	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setWidthScreen(window.innerWidth);
+		};
+
+		window.addEventListener("resize", handleResize);
+
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
 
 	return (
 		<>
 			<div className="displayAllWords__table-wrapper">
-				<TableMobile
-					words={words}
-					editWordOn={editWordOn}
-					removeWord={removeWord}
-					indexOfFirstWord={indexOfFirstWord}
-					indexOfLastWord={indexOfLastWord}
-				/>
+				{widthScreen > 770 ? (
+					<TableDesktop
+						words={words}
+						editWordOn={editWordOn}
+						removeWord={removeWord}
+						indexOfFirstWord={indexOfFirstWord}
+						indexOfLastWord={indexOfLastWord}
+					/>
+				) : (
+					<TableMobile
+						words={words}
+						editWordOn={editWordOn}
+						removeWord={removeWord}
+						indexOfFirstWord={indexOfFirstWord}
+						indexOfLastWord={indexOfLastWord}
+					/>
+				)}
 				<Pagination
 					wordsPerPage={wordsPerPage}
-					totalWords={allWords.length}
+					totalWords={words.length}
 					paginate={paginate}
 					currentPage={currentPage}
 				/>
