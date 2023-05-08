@@ -64,6 +64,10 @@ const LoginPage = () => {
 					setErrorMsg("hasło ok");
 
 					handleSetUser(data);
+					localStorage.setItem(
+						"user",
+						JSON.stringify({ id: data?.id, userName: data.userName })
+					);
 					handleLogIn();
 
 					return navigate(`../user/${data.id}`);

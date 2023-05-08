@@ -39,18 +39,35 @@ export const LoggedContext = createContext<LoggedContextType>({
 });
 
 function App() {
-	const [logged, setLogged] = useState(false);
-	const [user, setUser] = useState<UserEntity | null>(null);
+	const checkUser = () => {
+		if (localStorage.getItem("user") !== null) {
+			const user = localStorage.getItem("user");
+			if (user === null) return;
+			return JSON.parse(user);
+		} else return null;
+	};
+
+	const [logged, setLogged] = useState(() => {
+		if (localStorage.getItem("logged") === "true") {
+			return true;
+		} else return false;
+	});
+	const [user, setUser] = useState<UserEntity | null>(checkUser);
+	console.log(user);
 	const [words, setWords] = useState<WordEntity[]>([]);
 	const [showNav, setShowNav] = useState(false);
 
 	// TODO ustawić logged na jakis stan w localstorage??
 	const handleLogIn = () => {
 		setLogged(true);
+		localStorage.setItem("logged", String(true));
 	};
 	const handleLogOut = () => {
 		setLogged(false);
 		setUser(null);
+		localStorage.setItem("logged", String(false));
+
+		localStorage.setItem("user", JSON.stringify(null));
 	};
 
 	const refreshWords = async () => {
