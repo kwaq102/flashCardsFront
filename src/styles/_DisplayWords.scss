@@ -14,9 +14,6 @@
 			background-color: #1a1f27;
 			border-spacing: 0;
 
-			@media (max-width: map-get($breakpoints, m)) {
-				// display: none;
-			}
 			// HEAD
 			.displayAllWords__table__heading {
 				font-size: 2rem;

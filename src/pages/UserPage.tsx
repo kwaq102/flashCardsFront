@@ -24,11 +24,7 @@ const UserPage = ({ words, handleWords, onWordsChange }: Props) => {
 			) : (
 				<>
 					<h2 className="headingH2">Strona użytkownika</h2>
-					<DisplayRandomWord
-						words={words}
-						handleWords={handleWords}
-						onWordsChange={onWordsChange}
-					/>
+					<DisplayRandomWord words={words} onWordsChange={onWordsChange} />
 					<br />
 					<br />
 					<LogOutButton />

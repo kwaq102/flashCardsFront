@@ -1,21 +1,13 @@
-import React, {
-	ChangeEvent,
-	Dispatch,
-	MouseEvent,
-	SetStateAction,
-	useState,
-} from "react";
+import React, { ChangeEvent, MouseEvent, useState } from "react";
 import { MAIN_URL } from "../../utils/url";
 import { WordEntity } from "types";
 
 interface Props {
 	words: WordEntity[];
 	onWordsChange: () => void;
-
-	handleWords: Dispatch<SetStateAction<WordEntity[]>>;
 }
 
-const DisplayRandomWord = ({ words, handleWords, onWordsChange }: Props) => {
+const DisplayRandomWord = ({ words, onWordsChange }: Props) => {
 	const [numberWords, setNumberWords] = useState(1);
 	const [drawnWords, setDrawnWords] = useState<WordEntity[]>([]);
 
@@ -42,6 +34,8 @@ const DisplayRandomWord = ({ words, handleWords, onWordsChange }: Props) => {
 		const newArr: WordEntity[] = [];
 		const fullArr = [...words];
 
+		if (fullArr.length === 0) return;
+
 		if (fullArr.length === 1) {
 			setDrawnWords([...fullArr]);
 			return;
@@ -60,9 +54,7 @@ const DisplayRandomWord = ({ words, handleWords, onWordsChange }: Props) => {
 	};
 
 	const handleSetNumberWords = (e: ChangeEvent<HTMLSelectElement>) => {
-		console.log("click");
 		setNumberWords(Number(e.currentTarget.value));
-		console.log(numberWords);
 	};
 	const deleteWord = async (e: MouseEvent<HTMLButtonElement>) => {
 		if (!window.confirm("Czy na pewno?")) return;

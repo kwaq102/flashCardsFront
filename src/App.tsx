@@ -1,10 +1,4 @@
-import React, {
-	MouseEvent,
-	MouseEventHandler,
-	createContext,
-	useEffect,
-	useState,
-} from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Route } from "react-router";
 import { Routes, Navigate, Link } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
@@ -53,11 +47,9 @@ function App() {
 		} else return false;
 	});
 	const [user, setUser] = useState<UserEntity | null>(checkUser);
-	console.log(user);
 	const [words, setWords] = useState<WordEntity[]>([]);
 	const [showNav, setShowNav] = useState(false);
 
-	// TODO ustawić logged na jakis stan w localstorage??
 	const handleLogIn = () => {
 		setLogged(true);
 		localStorage.setItem("logged", String(true));
@@ -66,7 +58,6 @@ function App() {
 		setLogged(false);
 		setUser(null);
 		localStorage.setItem("logged", String(false));
-
 		localStorage.setItem("user", JSON.stringify(null));
 	};
 

@@ -3,7 +3,6 @@ import { WordEntity } from "types";
 import { MAIN_URL } from "../../utils/url";
 import Pagination from "../Pagination/Pagination";
 import EditWord from "./EditWord";
-import RowTable from "./RowTable";
 import TableMobile from "../TableMobile/TableMobile";
 import TableDesktop from "../TableDesktop/TableDesktop";
 
@@ -21,10 +20,11 @@ const Table = ({ words, onWordsChange }: Props) => {
 		notes: "",
 	});
 	const [marginForm, setMarginForm] = useState(0);
-	const [widthScreen, setWidthScreen] = useState(0);
+	const [widthScreen, setWidthScreen] = useState(window.innerWidth);
 
 	const [currentPage, setCurrentPage] = useState(1);
 	const [wordsPerPage, setWordsPerPage] = useState(15);
+
 	const removeWord = async (e: MouseEvent<HTMLButtonElement>) => {
 		if (!window.confirm("Czy na pewno?")) return;
 

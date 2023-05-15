@@ -28,6 +28,7 @@ const TableDesktop = ({
 		})
 		.map((word, i) => (
 			<RowTable
+				key={word.id}
 				word={word}
 				i={i}
 				editWordOn={editWordOn}

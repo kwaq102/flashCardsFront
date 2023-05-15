@@ -20,8 +20,6 @@ const Pagination = ({
 		pageNumbers.push(i);
 	}
 
-	console.log(pageNumbers);
-
 	return (
 		<div className="pagination">
 			<ArrowPagination

@@ -15,6 +15,7 @@ const RegisterPage = () => {
 		userName: "",
 		email: "",
 		password: "",
+		password2: "",
 	});
 
 	const [addedUser, setAddedUser] = useState(false);
@@ -23,6 +24,7 @@ const RegisterPage = () => {
 	const [nameError, setNameError] = useState(false);
 	const [emailError, setEmailError] = useState(false);
 	const [passwordError, setPasswordError] = useState(false);
+	const [password2Error, setPassword2Error] = useState(false);
 	const [errorMessage, setErrorMessage] = useState<string>("");
 
 	useEffect(() => {
@@ -58,6 +60,9 @@ const RegisterPage = () => {
 		if (form.password.length < 5) {
 			setPasswordError(true);
 		}
+		if (form.password !== form.password2) {
+			setPassword2Error(true);
+		}
 		if (users.some(user => user.email === form.email)) {
 			setEmailError(true);
 			setErrorMessage("Taki email już istnieje.");
@@ -69,7 +74,13 @@ const RegisterPage = () => {
 
 		console.log(form);
 
-		if (emailError || nameError || passwordError || errorMessage) {
+		if (
+			emailError ||
+			nameError ||
+			passwordError ||
+			password2Error ||
+			errorMessage
+		) {
 			return;
 		}
 
@@ -85,7 +96,13 @@ const RegisterPage = () => {
 			await res.json();
 
 			setAddedUser(true);
-			setForm({ id: "", userName: "", email: "", password: "" });
+			setForm({
+				id: "",
+				userName: "",
+				email: "",
+				password: "",
+				password2: "",
+			});
 		} catch (e) {
 			console.log(e);
 		}
@@ -96,6 +113,7 @@ const RegisterPage = () => {
 		setEmailError(false);
 		setNameError(false);
 		setPasswordError(false);
+		setPassword2Error(false);
 		setErrorMessage("");
 
 		setForm(form => ({
@@ -156,6 +174,20 @@ const RegisterPage = () => {
 							/>
 							{passwordError && (
 								<ErrorMessage errorMessage="Hasło musi skłądać się z co najmniej 5 znaków" />
+							)}
+						</label>
+						<label className="registerPage__form-label">
+							Powtórz hasło:
+							<br />
+							<input
+								className="registerPage__form-input"
+								type="password"
+								name="password2"
+								value={form.password2}
+								onChange={e => updateForm("password2", e.target.value)}
+							/>
+							{password2Error && (
+								<ErrorMessage errorMessage="Podane hasła różnią się od siebie" />
 							)}
 						</label>
 						<button
