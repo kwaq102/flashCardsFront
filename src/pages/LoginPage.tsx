@@ -1,6 +1,13 @@
-import React, { SyntheticEvent, useContext, useState } from "react";
+import React, {
+	Dispatch,
+	SetStateAction,
+	SyntheticEvent,
+	useContext,
+	useState,
+} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoggedContext } from "../App";
+import EyePassword from "../components/EyePassword";
 
 const LoginPage = () => {
 	const [form, setForm] = useState({
@@ -22,6 +29,9 @@ const LoginPage = () => {
 	const context = useContext(LoggedContext);
 
 	const { logged, handleLogIn, user, handleSetUser, handleLogOut } = context;
+
+	const [displayPassword, setDisplayPassword] = useState(false);
+	const inputType = displayPassword ? "text" : "password";
 
 	if (logged) {
 		return (
@@ -100,10 +110,14 @@ const LoginPage = () => {
 					<br />
 					<input
 						className="loginPage__form-input"
-						type="password"
+						type={inputType}
 						name="password"
 						value={form.password}
 						onChange={e => updateForm("password", e.target.value)}
+					/>
+					<EyePassword
+						displayPassword={displayPassword}
+						setDisplayPassword={setDisplayPassword}
 					/>
 				</label>
 				<button type="submit" className="loginPage__form-button btn">

@@ -5,6 +5,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import SuccessInfo from "../components/SuccessInfo";
 import { LoggedContext } from "../App";
 import LogOutButton from "./LogOutButton";
+import EyePassword from "../components/EyePassword";
 
 const RegisterPage = () => {
 	const context = useContext(LoggedContext);
@@ -26,6 +27,12 @@ const RegisterPage = () => {
 	const [passwordError, setPasswordError] = useState(false);
 	const [password2Error, setPassword2Error] = useState(false);
 	const [errorMessage, setErrorMessage] = useState<string>("");
+
+	// TODO poszukać rozwiązania czy da się to jakoś skrócić
+	const [displayPassword, setDisplayPassword] = useState(false);
+	const [displayPassword2, setDisplayPassword2] = useState(false);
+	const inputType = displayPassword ? "text" : "password";
+	const inputType2 = displayPassword2 ? "text" : "password";
 
 	useEffect(() => {
 		(async () => {
@@ -138,7 +145,6 @@ const RegisterPage = () => {
 					<form onSubmit={addUser} className="registerPage__form">
 						<label className="registerPage__form-label">
 							Nazwa użytkownika:
-							<br />
 							<input
 								className="registerPage__form-input"
 								type="text"
@@ -152,7 +158,6 @@ const RegisterPage = () => {
 						</label>
 						<label className="registerPage__form-label">
 							E-mail:
-							<br />
 							<input
 								className="registerPage__form-input"
 								type="email"
@@ -164,13 +169,16 @@ const RegisterPage = () => {
 						</label>
 						<label className="registerPage__form-label">
 							Hasło:
-							<br />
 							<input
 								className="registerPage__form-input"
-								type="password"
+								type={inputType}
 								name="password"
 								value={form.password}
 								onChange={e => updateForm("password", e.target.value)}
+							/>
+							<EyePassword
+								displayPassword={displayPassword}
+								setDisplayPassword={setDisplayPassword}
 							/>
 							{passwordError && (
 								<ErrorMessage errorMessage="Hasło musi skłądać się z co najmniej 5 znaków" />
@@ -178,13 +186,16 @@ const RegisterPage = () => {
 						</label>
 						<label className="registerPage__form-label">
 							Powtórz hasło:
-							<br />
 							<input
 								className="registerPage__form-input"
-								type="password"
+								type={inputType2}
 								name="password2"
 								value={form.password2}
 								onChange={e => updateForm("password2", e.target.value)}
+							/>
+							<EyePassword
+								displayPassword={displayPassword2}
+								setDisplayPassword={setDisplayPassword2}
 							/>
 							{password2Error && (
 								<ErrorMessage errorMessage="Podane hasła różnią się od siebie" />
