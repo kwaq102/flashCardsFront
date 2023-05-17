@@ -5,13 +5,16 @@ import Pagination from "../Pagination/Pagination";
 import EditWord from "./EditWord";
 import TableMobile from "../TableMobile/TableMobile";
 import TableDesktop from "../TableDesktop/TableDesktop";
+import FadeLoader from "react-spinners/FadeLoader";
+import { override } from "../../utils/loadingStyle";
 
 interface Props {
 	words: WordEntity[];
 	onWordsChange: () => void;
+	loading: boolean;
 }
 
-const Table = ({ words, onWordsChange }: Props) => {
+const Table = ({ words, onWordsChange, loading }: Props) => {
 	const [edit, setEdit] = useState(false);
 	const [form, setForm] = useState({
 		id: "",
@@ -106,40 +109,49 @@ const Table = ({ words, onWordsChange }: Props) => {
 
 	return (
 		<>
-			<div className="displayAllWords__table-wrapper">
-				{widthScreen > 770 ? (
-					<TableDesktop
-						words={words}
-						editWordOn={editWordOn}
-						removeWord={removeWord}
-						indexOfFirstWord={indexOfFirstWord}
-						indexOfLastWord={indexOfLastWord}
-					/>
-				) : (
-					<TableMobile
-						words={words}
-						editWordOn={editWordOn}
-						removeWord={removeWord}
-						indexOfFirstWord={indexOfFirstWord}
-						indexOfLastWord={indexOfLastWord}
-					/>
-				)}
-				<Pagination
-					wordsPerPage={wordsPerPage}
-					totalWords={words.length}
-					paginate={paginate}
-					currentPage={currentPage}
+			{loading ? (
+				<FadeLoader
+					speedMultiplier={0.8}
+					height={25}
+					cssOverride={override}
+					color="#464c5a"
 				/>
-				{edit && (
-					<EditWord
-						form={form}
-						setForm={setForm}
-						editWord={editWord}
-						marginForm={marginForm}
-						setEdit={setEdit}
+			) : (
+				<div className="displayAllWords__table-wrapper">
+					{widthScreen > 770 ? (
+						<TableDesktop
+							words={words}
+							editWordOn={editWordOn}
+							removeWord={removeWord}
+							indexOfFirstWord={indexOfFirstWord}
+							indexOfLastWord={indexOfLastWord}
+						/>
+					) : (
+						<TableMobile
+							words={words}
+							editWordOn={editWordOn}
+							removeWord={removeWord}
+							indexOfFirstWord={indexOfFirstWord}
+							indexOfLastWord={indexOfLastWord}
+						/>
+					)}
+					<Pagination
+						wordsPerPage={wordsPerPage}
+						totalWords={words.length}
+						paginate={paginate}
+						currentPage={currentPage}
 					/>
-				)}
-			</div>
+					{edit && (
+						<EditWord
+							form={form}
+							setForm={setForm}
+							editWord={editWord}
+							marginForm={marginForm}
+							setEdit={setEdit}
+						/>
+					)}
+				</div>
+			)}
 		</>
 	);
 };

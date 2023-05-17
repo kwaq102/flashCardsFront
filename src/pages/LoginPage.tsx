@@ -1,10 +1,4 @@
-import React, {
-	Dispatch,
-	SetStateAction,
-	SyntheticEvent,
-	useContext,
-	useState,
-} from "react";
+import React, { SyntheticEvent, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoggedContext } from "../App";
 import EyePassword from "../components/EyePassword";
@@ -76,7 +70,7 @@ const LoginPage = () => {
 					handleSetUser(data);
 					localStorage.setItem(
 						"user",
-						JSON.stringify({ id: data?.id, userName: data.userName })
+						JSON.stringify({ id: data.id, userName: data.userName })
 					);
 					handleLogIn();
 

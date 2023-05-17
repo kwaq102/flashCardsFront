@@ -79,8 +79,6 @@ const RegisterPage = () => {
 	const addUser = async (e: SyntheticEvent) => {
 		e.preventDefault();
 
-		console.log(form);
-
 		if (
 			emailError ||
 			nameError ||
@@ -145,6 +143,7 @@ const RegisterPage = () => {
 					<form onSubmit={addUser} className="registerPage__form">
 						<label className="registerPage__form-label">
 							Nazwa użytkownika:
+							<br />
 							<input
 								className="registerPage__form-input"
 								type="text"
@@ -158,6 +157,7 @@ const RegisterPage = () => {
 						</label>
 						<label className="registerPage__form-label">
 							E-mail:
+							<br />
 							<input
 								className="registerPage__form-input"
 								type="email"
@@ -169,6 +169,7 @@ const RegisterPage = () => {
 						</label>
 						<label className="registerPage__form-label">
 							Hasło:
+							<br />
 							<input
 								className="registerPage__form-input"
 								type={inputType}
@@ -186,6 +187,7 @@ const RegisterPage = () => {
 						</label>
 						<label className="registerPage__form-label">
 							Powtórz hasło:
+							<br />
 							<input
 								className="registerPage__form-input"
 								type={inputType2}

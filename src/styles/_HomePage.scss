@@ -1,6 +1,5 @@
 .homePage__content {
 	@include contentCenter();
-	height: 100vh;
 	width: 30%;
 
 	@media (max-width: 1000px) {

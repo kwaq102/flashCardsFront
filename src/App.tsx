@@ -7,13 +7,15 @@ import UserPage from "./pages/UserPage";
 import { UserEntity } from "../../back/types/user";
 import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
-
 import Navigation from "./components/Navigation";
 import AddWord from "./components/WordsComponents/AddWord";
 import DisplayWords from "./components/WordsComponents/DisplayWords";
 import { MAIN_URL } from "./utils/url";
 import { WordEntity } from "types";
 import Footer from "./components/Footer";
+import FadeLoader from "react-spinners/FadeLoader";
+import { override } from "./utils/loadingStyle";
+
 import "./styles/index.scss";
 
 interface LoggedContextType {
@@ -49,25 +51,30 @@ function App() {
 	const [user, setUser] = useState<UserEntity | null>(checkUser);
 	const [words, setWords] = useState<WordEntity[]>([]);
 	const [showNav, setShowNav] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const handleLogIn = () => {
+		setLoading(true);
 		setLogged(true);
 		localStorage.setItem("logged", String(true));
+		setLoading(false);
 	};
 	const handleLogOut = () => {
 		setLogged(false);
 		setUser(null);
-		localStorage.setItem("logged", String(false));
-		localStorage.setItem("user", JSON.stringify(null));
+		localStorage.removeItem("logged");
+		localStorage.removeItem("user");
 	};
 
 	const refreshWords = async () => {
 		if (user === null) return null;
+		setLoading(true);
 		setWords([]);
 
 		const res = await fetch(`${MAIN_URL}/data/search/${user.id}`);
 		const data = await res.json();
 		setWords(data);
+		setLoading(false);
 	};
 
 	useEffect(() => {
@@ -117,6 +124,13 @@ function App() {
 						element={
 							!logged ? (
 								<Navigate replace to="../../login" />
+							) : loading ? (
+								<FadeLoader
+									speedMultiplier={0.8}
+									height={25}
+									cssOverride={override}
+									color="#464c5a"
+								/>
 							) : (
 								<UserPage
 									words={words}
@@ -133,7 +147,11 @@ function App() {
 					<Route
 						path={`/user/${user?.id}/show-words`}
 						element={
-							<DisplayWords words={words} onWordsChange={refreshWords} />
+							<DisplayWords
+								words={words}
+								onWordsChange={refreshWords}
+								loading={loading}
+							/>
 						}
 					/>
 					<Route path="*" element={<ErrorPage />} />

@@ -6,9 +6,10 @@ import Table from "./Table";
 interface Props {
 	words: WordEntity[];
 	onWordsChange: () => void;
+	loading: boolean;
 }
 
-const DisplayWords = ({ words, onWordsChange }: Props) => {
+const DisplayWords = ({ words, onWordsChange, loading }: Props) => {
 	const [isArrow, setIsArrow] = useState(false);
 
 	useEffect(() => {
@@ -30,7 +31,7 @@ const DisplayWords = ({ words, onWordsChange }: Props) => {
 	return (
 		<section className="displayAllWords">
 			<h2 className="displayAllWords__heading headingH3">Twój słownik</h2>
-			<Table words={words} onWordsChange={onWordsChange} />
+			<Table words={words} onWordsChange={onWordsChange} loading={loading} />
 			{isArrow && <TopArrow />}
 		</section>
 	);
