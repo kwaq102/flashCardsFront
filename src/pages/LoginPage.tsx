@@ -2,6 +2,8 @@ import React, { SyntheticEvent, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoggedContext } from "../App";
 import EyePassword from "../components/EyePassword";
+import { compare } from "bcrypt";
+import { MAIN_URL } from "../utils/url";
 
 const LoginPage = () => {
 	const [form, setForm] = useState({
@@ -58,25 +60,30 @@ const LoginPage = () => {
 		e.preventDefault();
 
 		try {
-			const res = await fetch(`http://localhost:3001/login/${form.email}`);
+			const res = await fetch(`${MAIN_URL}/login/${form.email}`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(form),
+			});
 			const data = await res.json();
+			console.log(data);
 
 			if (data === null) {
 				return setErrorMsg("Nieprawidłowe dane");
 			} else {
-				if (form.password === data.password) {
+				if (data.error) {
+					setErrorMsg("Hasło jest nieprawidłowe");
+				} else {
 					setErrorMsg("hasło ok");
-
 					handleSetUser(data);
 					localStorage.setItem(
 						"user",
 						JSON.stringify({ id: data.id, userName: data.userName })
 					);
 					handleLogIn();
-
 					return navigate(`../user/${data.id}`);
-				} else {
-					return setErrorMsg("hasło jest nieprawidłowe");
 				}
 			}
 		} catch (error) {
