@@ -23,7 +23,6 @@ const AddWord = ({ onWordsChange }: Props) => {
 		});
 	};
 
-	//TODO może uda się te useEffecty wynieść do komponentu nadrzędnego z successem
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setAddedWord(false);

@@ -1,6 +1,7 @@
 import React, { ChangeEvent, MouseEvent, useState } from "react";
 import { MAIN_URL } from "../../utils/url";
 import { WordEntity } from "types";
+import CardWord from "./CardWord";
 
 interface Props {
 	words: WordEntity[];
@@ -111,25 +112,8 @@ const DisplayRandomWord = ({ words, onWordsChange }: Props) => {
 			</button>
 			<div className="drawWords__content">
 				<p className="drawWords__text">Wylosowane: </p>
-				{/* TODO karta poniżej raczej osobny komponent */}
-				{drawnWords.map((word, i) => (
-					<div key={word.id} className="drawWords__content-card">
-						<h4 className="drawWords__content-headingH4">{word.title}</h4>
-						<p className="drawWords__content-description text">
-							{word.description}
-						</p>
-						<p className="drawWords__content-notes text">
-							<span>Notatki: </span>
-							{word.notes}
-						</p>
-						<button
-							id={word.id}
-							onClick={deleteWord}
-							className="drawWords__deleteButton btn"
-						>
-							Usuń
-						</button>
-					</div>
+				{drawnWords.map(word => (
+					<CardWord word={word} deleteWord={deleteWord} />
 				))}
 			</div>
 		</section>
