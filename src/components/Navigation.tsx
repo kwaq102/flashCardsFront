@@ -32,7 +32,6 @@ const Navigation = ({ user, showNav, setShowNav }: Props) => {
 		<nav className="navigation">
 			<ul className={showNav ? "navigation__list show" : "navigation__list"}>
 				{navigation}
-				{/* TODO spróbować to ogarnąć aby korzystać normalnie z user/:id */}
 				<li className="navigation__list__element-link">
 					<NavLink
 						to={`/user/${userIdPath}`}

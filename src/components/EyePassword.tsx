@@ -12,8 +12,6 @@ const EyePassword = ({ displayPassword, setDisplayPassword }: Props) => {
 		setDisplayPassword(!displayPassword);
 	};
 
-	// TODO zrobić pokazanie hasła niezależnie
-
 	return (
 		<div
 			className="registerPage__form-label__eye-wrapper"

@@ -1,15 +1,15 @@
 import React, { createContext, useEffect, useState } from "react";
 import { Route } from "react-router";
-import { Routes, Navigate, Link } from "react-router-dom";
+import { Routes, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserPage from "./pages/UserPage";
 import { UserEntity } from "../../back/types/user";
 import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
-import Navigation from "./components/Navigation";
 import AddWord from "./components/WordsComponents/AddWord";
 import DisplayWords from "./components/WordsComponents/DisplayWords";
+import Banner from "./components/Banner";
 import { MAIN_URL } from "./utils/url";
 import { WordEntity } from "types";
 import Footer from "./components/Footer";
@@ -91,20 +91,13 @@ function App() {
 
 	return (
 		<div className="App" onClick={hideNav}>
-			{/* TODO banner wywalić do osobnego komponentu */}
-			<div className="App__bannerTop">
-				{logged ? (
-					<Link to="/" className="App__bannerTop__btn" onClick={handleLogOut}>
-						Wyloguj
-					</Link>
-				) : (
-					<Link to="/login" className="App__bannerTop__btn">
-						Zaloguj
-					</Link>
-				)}
-
-				<Navigation user={user} showNav={showNav} setShowNav={setShowNav} />
-			</div>
+			<Banner
+				logged={logged}
+				handleLogOut={handleLogOut}
+				user={user}
+				showNav={showNav}
+				setShowNav={setShowNav}
+			/>
 			<LoggedContext.Provider
 				value={{
 					logged,

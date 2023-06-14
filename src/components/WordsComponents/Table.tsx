@@ -66,9 +66,9 @@ const Table = ({ words, onWordsChange, loading }: Props) => {
 	const editWord = async (e: FormEvent) => {
 		e.preventDefault();
 
-		// TODO ten confirm zamienić na jakiś ładny popup
 		try {
 			if (!window.confirm("Czy chcesz zapisać zmiany?")) return;
+
 			await fetch(`${MAIN_URL}/data/search/${form.id}`, {
 				method: "PATCH",
 				headers: {
