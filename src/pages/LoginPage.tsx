@@ -2,20 +2,24 @@ import React, { SyntheticEvent, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoggedContext } from "../App";
 import EyePassword from "../components/EyePassword";
-import { compare } from "bcrypt";
 import { MAIN_URL } from "../utils/url";
+import ErrorMessage from "../components/ErrorMessage";
 
 const LoginPage = () => {
 	const [form, setForm] = useState({
 		email: "",
 		password: "",
 	});
+	const [emailError, setEmailError] = useState(false);
+	const [passwordError, setPasswordError] = useState(false);
 
 	const [errorMsg, setErrorMsg] = useState("");
 
 	const navigate = useNavigate();
 
 	const updateForm = (key: string, value: string) => {
+		setEmailError(false);
+		setPasswordError(false);
 		setForm(form => ({
 			...form,
 			[key]: value,
@@ -59,6 +63,20 @@ const LoginPage = () => {
 	const getUser = async (e: SyntheticEvent) => {
 		e.preventDefault();
 
+		if (
+			form.email.length < 5 ||
+			!form.email.includes("@") ||
+			!form.email.includes(".")
+		) {
+			setEmailError(true);
+		}
+
+		if (form.password.length < 5) {
+			setPasswordError(true);
+		}
+
+		if (emailError || passwordError) return;
+
 		try {
 			const res = await fetch(`${MAIN_URL}/login/${form.email}`, {
 				method: "POST",
@@ -68,15 +86,15 @@ const LoginPage = () => {
 				body: JSON.stringify(form),
 			});
 			const data = await res.json();
-			console.log(data);
+			// console.log(data);
 
 			if (data === null) {
 				return setErrorMsg("Nieprawidłowe dane");
 			} else {
 				if (data.error) {
-					setErrorMsg("Hasło jest nieprawidłowe");
+					setPasswordError(true);
+					return;
 				} else {
-					setErrorMsg("hasło ok");
 					handleSetUser(data);
 					localStorage.setItem(
 						"user",
@@ -106,6 +124,7 @@ const LoginPage = () => {
 						onChange={e => updateForm("email", e.target.value)}
 					/>
 				</label>
+				{emailError && <ErrorMessage errorMessage="Nieprawidłowy email" />}
 				<label className="loginPage__form-label">
 					Podaj hasło
 					<br />
@@ -121,6 +140,8 @@ const LoginPage = () => {
 						setDisplayPassword={setDisplayPassword}
 					/>
 				</label>
+				{passwordError && <ErrorMessage errorMessage="Nieprawiłowe hasło" />}
+
 				<button type="submit" className="loginPage__form-button btn">
 					Zaloguj
 				</button>
@@ -134,7 +155,6 @@ const LoginPage = () => {
 					</Link>
 				</p>
 			</form>
-			{errorMsg && <p>{errorMsg}</p>}
 		</section>
 	);
 };

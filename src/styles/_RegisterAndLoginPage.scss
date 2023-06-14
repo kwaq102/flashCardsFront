@@ -41,11 +41,6 @@
 			.registerPage__form-input {
 				@include input();
 			}
-
-			.errorMessage {
-				margin-top: 3px;
-				color: red;
-			}
 		}
 
 		.btn {
