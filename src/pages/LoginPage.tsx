@@ -20,6 +20,7 @@ const LoginPage = () => {
 	const updateForm = (key: string, value: string) => {
 		setEmailError(false);
 		setPasswordError(false);
+		setErrorMsg("");
 		setForm(form => ({
 			...form,
 			[key]: value,
@@ -85,11 +86,16 @@ const LoginPage = () => {
 				},
 				body: JSON.stringify(form),
 			});
+			console.log(res.status);
+			if (res.status === 500) {
+				setErrorMsg("Niewłaście dane.");
+			}
 			const data = await res.json();
 			// console.log(data);
 
 			if (data === null) {
-				return setErrorMsg("Nieprawidłowe dane");
+				setErrorMsg("Nieprawidłowe dane");
+				return;
 			} else {
 				if (data.error) {
 					setPasswordError(true);
@@ -154,6 +160,7 @@ const LoginPage = () => {
 						Załóż je
 					</Link>
 				</p>
+				{errorMsg && <ErrorMessage errorMessage={errorMsg} />}
 			</form>
 		</section>
 	);

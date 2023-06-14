@@ -1,0 +1,21 @@
+.errorPage {
+	@include contentCenter();
+
+	.errorPage__text {
+		@include text();
+		font-size: 2.2rem;
+	}
+
+	.errorPage__linkToHomePage {
+		@include link();
+		text-align: center;
+		margin-top: 20px;
+		color: #fff;
+		font-size: 1.2rem;
+		font-style: italic;
+
+		&:hover {
+			color: orange;
+		}
+	}
+}

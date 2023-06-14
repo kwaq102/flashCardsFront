@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 
 const ErrorPage = () => {
 	return (
-		<>
-			<p>Ups... coś poszło nie tak</p>
-			<Link to="/">Wróć do strony głównej</Link>
-		</>
+		<section className="errorPage">
+			<p className="errorPage__text">Ups... coś poszło nie tak...</p>
+			<Link to="/" className="errorPage__linkToHomePage">
+				Wróć do strony głównej
+			</Link>
+		</section>
 	);
 };
 
