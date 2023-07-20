@@ -86,12 +86,10 @@ const LoginPage = () => {
 				},
 				body: JSON.stringify(form),
 			});
-			console.log(res.status);
 			if (res.status === 500) {
 				setErrorMsg("Niewłaście dane.");
 			}
 			const data = await res.json();
-			// console.log(data);
 
 			if (data === null) {
 				setErrorMsg("Nieprawidłowe dane");
@@ -104,7 +102,11 @@ const LoginPage = () => {
 					handleSetUser(data);
 					localStorage.setItem(
 						"user",
-						JSON.stringify({ id: data.id, userName: data.userName })
+						JSON.stringify({
+							id: data.id,
+							userName: data.userName,
+							email: data.email,
+						})
 					);
 					handleLogIn();
 					return navigate(`../user/${data.id}`);

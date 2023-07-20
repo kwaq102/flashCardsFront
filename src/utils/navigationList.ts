@@ -1,5 +1,3 @@
-
-
 export const navList = [
     { navName: "Strona Główna", path: "/", end: true },
     { navName: "Rejestracja", path: "/register" },

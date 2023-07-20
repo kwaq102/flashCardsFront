@@ -4,7 +4,7 @@ import { Routes, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserPage from "./pages/UserPage";
-import { UserEntity } from "../../back/types/user";
+import { UserEntity } from "types";
 import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
 import AddWord from "./components/WordsComponents/AddWord";
@@ -49,6 +49,8 @@ function App() {
 		} else return false;
 	});
 	const [user, setUser] = useState<UserEntity | null>(checkUser);
+	console.log(user);
+
 	const [words, setWords] = useState<WordEntity[]>([]);
 	const [showNav, setShowNav] = useState(false);
 	const [loading, setLoading] = useState(false);

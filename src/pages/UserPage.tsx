@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useContext } from "react";
 import { LoggedContext } from "../App";
-import { useNavigate } from "react-router-dom";
 import LogOutButton from "./LogOutButton";
 import { WordEntity } from "types";
 import DisplayRandomWord from "../components/WordsComponents/DisplayRandomWord";
+import UserInfo from "../components/UserInfo";
 
 interface Props {
 	words: WordEntity[];
@@ -13,9 +13,8 @@ interface Props {
 
 const UserPage = ({ words, handleWords, onWordsChange }: Props) => {
 	const context = useContext(LoggedContext);
-	const navigate = useNavigate();
 
-	const { logged, handleLogIn, user } = context;
+	const { logged } = context;
 
 	return (
 		<section className="userPage page">
@@ -24,6 +23,7 @@ const UserPage = ({ words, handleWords, onWordsChange }: Props) => {
 			) : (
 				<>
 					<h2 className="headingH2">Strona użytkownika</h2>
+					<UserInfo />
 					<DisplayRandomWord words={words} onWordsChange={onWordsChange} />
 					<br />
 					<br />

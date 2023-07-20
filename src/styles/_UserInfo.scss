@@ -1,0 +1,108 @@
+// TODO dodać rwd !
+
+.userInfo {
+	@include widthContent();
+	margin-top: 30px;
+	margin-bottom: 30px;
+
+	.userInfo__title {
+		font-size: 2rem;
+		margin-bottom: 10px;
+	}
+
+	.userInfo__box {
+		display: flex;
+		width: 600px;
+		height: 250px;
+		margin: 5px 0;
+
+		.userInfo__details {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			width: 40%;
+			height: 100%;
+			padding: 20px;
+			background: rgb(26, 31, 39);
+			background: linear-gradient(
+				125deg,
+				rgba(79, 86, 102, 1) 0%,
+				rgba(26, 31, 39, 1) 70%
+			);
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
+			text-align: center;
+
+			.userInfo__userName {
+				margin: 10px 0;
+				font-size: 1.8rem;
+				font-weight: bold;
+				letter-spacing: 1px;
+			}
+			.userInfo__userEmail {
+				font-size: 1.6rem;
+			}
+
+			.btn {
+				@include btn();
+				padding: 5px;
+				margin: 10px auto;
+				font-size: 1rem;
+				text-transform: uppercase;
+			}
+		}
+
+		.userInfo__changePasswordBox {
+			width: 60%;
+			background: rgb(26, 31, 39);
+			background: linear-gradient(
+				75deg,
+				rgba(26, 31, 39, 1) 0%,
+				rgba(79, 86, 102, 1) 100%
+			);
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px;
+			transform: scaleX(0);
+			transform-origin: 0;
+			transition: transform 0.4s;
+
+			.editPasswordForm {
+				display: flex;
+				flex-direction: column;
+				padding: 20px;
+
+				.editPasswordForm__password {
+					font-size: 1.2rem;
+					margin: 5px 0;
+
+					input {
+						@include input();
+						display: block;
+						padding: 5px;
+						margin-top: 5px;
+						border-radius: 3px;
+						font-size: 1.1rem;
+					}
+				}
+
+				.editPasswordForm__button {
+					@include btn();
+					margin: 10px auto;
+					font-size: 1.4rem;
+				}
+			}
+
+			.resultInfo {
+				.errorMessage {
+					font-size: 1.6rem;
+					margin-top: 10px;
+					text-align: center;
+				}
+			}
+		}
+
+		.displayEdit {
+			transform: scaleX(1);
+		}
+	}
+}
